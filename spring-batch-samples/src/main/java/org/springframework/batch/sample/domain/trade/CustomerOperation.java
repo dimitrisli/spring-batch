@@ -37,7 +37,7 @@ public enum CustomerOperation {
 	}
 	
 	static{
-		CODE_MAP = new HashMap<>();
+		CODE_MAP = new HashMap<Character,CustomerOperation>();
 		for(CustomerOperation operation:values()){
 			CODE_MAP.put(operation.getCode(), operation);
 		}

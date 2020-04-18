@@ -36,7 +36,7 @@ public class DefaultJobLoader implements JobLoader, ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
 
-	private Map<String, String> configurations = new HashMap<>();
+	private Map<String, String> configurations = new HashMap<String, String>();
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -49,7 +49,7 @@ public class DefaultJobLoader implements JobLoader, ApplicationContextAware {
 
 	@Override
 	public Map<String, String> getConfigurations() {
-		Map<String, String> result = new HashMap<>(configurations);
+		Map<String, String> result = new HashMap<String, String>(configurations);
 		for (String jobName : registry.getJobNames()) {
 			try {
 				Job configuration = registry.getJob(jobName);

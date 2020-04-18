@@ -27,7 +27,7 @@ public class Person {
 	private String last_name = "";
 	private int age = 0;
 	private Address address = new Address();
-	private List<Child> children = new ArrayList<>();
+	private List<Child> children = new ArrayList<Child>();
 
 	public Person() {
 		children.add(new Child());

@@ -61,6 +61,6 @@ public class RetrySampleConfiguration {
 
 	@Bean
 	protected ItemWriter<Object> writer() {
-		return new RetrySampleItemWriter<>();
+		return new RetrySampleItemWriter<Object>();
 	}
 }

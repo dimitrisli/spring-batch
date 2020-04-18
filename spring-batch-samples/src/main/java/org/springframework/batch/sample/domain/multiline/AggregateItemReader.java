@@ -105,7 +105,7 @@ public class AggregateItemReader<T> implements ItemReader<List<T>> {
 	 * 
 	 */
 	private class ResultHolder {
-		private List<T> records = new ArrayList<>();
+		private List<T> records = new ArrayList<T>();
 		private boolean exhausted = false;
 
 		public List<T> getRecords() {

@@ -37,7 +37,7 @@ public class JobExecutionNotificationPublisherTests {
 
 	@Test
 	public void testRepeatOperationsOpenUsed() throws Exception {
-		final List<Notification> list = new ArrayList<>();
+		final List<Notification> list = new ArrayList<Notification>();
 
 		publisher.setNotificationPublisher(new NotificationPublisher() {
 			@Override

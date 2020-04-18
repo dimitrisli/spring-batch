@@ -43,7 +43,7 @@ public class TradeWriter extends ItemStreamSupport implements ItemWriter<Trade> 
 
 	private TradeDao dao;
 
-	private List<String> failingCustomers = new ArrayList<>();
+	private List<String> failingCustomers = new ArrayList<String>();
 
 	private BigDecimal totalPrice = BigDecimal.ZERO;
 

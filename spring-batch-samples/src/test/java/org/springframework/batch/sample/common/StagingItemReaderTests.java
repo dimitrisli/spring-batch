@@ -90,7 +90,7 @@ public class StagingItemReaderTests {
 		String item = wrapper.getItem();
 		assertEquals("FOO", item);
 
-		StagingItemProcessor<String> updater = new StagingItemProcessor<>();
+		StagingItemProcessor<String> updater = new StagingItemProcessor<String>();
 		updater.setJdbcTemplate(jdbcTemplate);
 		updater.process(wrapper);
 

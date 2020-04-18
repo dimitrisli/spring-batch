@@ -123,7 +123,7 @@ InitializingBean, DisposableBean {
 			}
 		}, id);
 
-		return new ProcessIndicatorItemWrapper<>(id, result);
+		return new ProcessIndicatorItemWrapper<T>(id, result);
 	}
 
 	@Override

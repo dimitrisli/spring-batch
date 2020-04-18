@@ -53,7 +53,7 @@ public class TradeJobFunctionalTests {
 	private List<Trade> trades;
 	private int activeRow = 0;
 	private JdbcOperations jdbcTemplate;
-	private Map<String, Double> credits = new HashMap<>();
+	private Map<String, Double> credits = new HashMap<String, Double>();
 
 	@Autowired
 	private JobLauncherTestUtils jobLauncherTestUtils;
