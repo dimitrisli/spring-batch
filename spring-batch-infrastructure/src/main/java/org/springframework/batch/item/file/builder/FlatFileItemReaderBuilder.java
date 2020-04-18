@@ -512,7 +512,10 @@ public class FlatFileItemReaderBuilder<T> {
 		}
 
 		reader.setLinesToSkip(this.linesToSkip);
-		reader.setComments(this.comments.toArray(new String[this.comments.size()]));
+
+		if(!this.comments.isEmpty()) {
+			reader.setComments(this.comments.toArray(new String[this.comments.size()]));
+		}
 
 		reader.setSkippedLinesCallback(this.skippedLinesCallback);
 		reader.setRecordSeparatorPolicy(this.recordSeparatorPolicy);
