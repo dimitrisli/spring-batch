@@ -32,7 +32,6 @@ import org.springframework.core.task.TaskExecutor;
  *
  * @author Dave Syer
  * @author Mahmoud Ben Hassine
- * @author Dimitrios Liapis
  *
  * @since 2.2
  */
@@ -123,7 +122,7 @@ public class PartitionStepBuilder extends StepBuilderHelper<PartitionStepBuilder
 	/**
 	 * A hint to the {@link #splitter(StepExecutionSplitter)} about how many step executions are required. If running
 	 * locally or remotely through a {@link #taskExecutor(TaskExecutor)} determines precisely the number of step
-	 * executions in the first attempt at a partition step execution.
+	 * execution sin the first attempt at a partition step execution.
 	 *
 	 * @param gridSize the grid size
 	 * @return this for fluent chaining
