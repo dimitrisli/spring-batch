@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -442,16 +442,15 @@ public class CommandLineJobRunner {
 	}
 
 	private List<JobExecution> getRunningJobExecutions(String jobIdentifier) {
-		Long executionId = getLongIdentifier(jobIdentifier);
+		List<JobExecution> jobExecutions = getJobExecutionsWithStatusGreaterThan(jobIdentifier, BatchStatus.COMPLETED);
+		if (jobExecutions.isEmpty()) {
+			return null;
+		}
 		List<JobExecution> result = new ArrayList<>();
-		if (executionId != null) {
-			JobExecution jobExecution = jobExplorer.getJobExecution(executionId);
-			if (jobExecution != null && jobExecution.isRunning()) {
+		for (JobExecution jobExecution : jobExecutions) {
+			if (jobExecution.isRunning()) {
 				result.add(jobExecution);
 			}
-		}
-		else {
-			result.addAll(jobExplorer.findRunningJobExecutions(jobIdentifier));
 		}
 		return result.isEmpty() ? null : result;
 	}
