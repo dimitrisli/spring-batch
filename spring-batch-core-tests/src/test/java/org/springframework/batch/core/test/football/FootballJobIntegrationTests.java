@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2009 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.batch.core.BatchStatus;
@@ -30,22 +31,24 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.batch.core.test.AbstractIntegrationTests;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.jdbc.JdbcTestUtils;
 
 /**
  * @author Dave Syer
- * @author Mahmoud Ben Hassine
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/simple-job-launcher-context.xml", "/META-INF/batch/footballJob.xml" })
-public class FootballJobIntegrationTests extends AbstractIntegrationTests {
+public class FootballJobIntegrationTests {
 
 	/** Logger */
 	private final Log logger = LogFactory.getLog(getClass());
+
+	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private JobLauncher jobLauncher;
@@ -55,7 +58,12 @@ public class FootballJobIntegrationTests extends AbstractIntegrationTests {
 
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+
+	@Before
+	public void clear() {
+		JdbcTestUtils.deleteFromTables(jdbcTemplate, "PLAYER_SUMMARY", "GAMES", "PLAYERS");
 	}
 
 	@Test
