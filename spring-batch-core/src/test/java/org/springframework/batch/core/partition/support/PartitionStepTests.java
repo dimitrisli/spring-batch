@@ -15,15 +15,8 @@
  */
 package org.springframework.batch.core.partition.support;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
@@ -33,6 +26,12 @@ import org.springframework.batch.core.partition.PartitionHandler;
 import org.springframework.batch.core.partition.StepExecutionSplitter;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.Assert.assertEquals;
 
@@ -74,7 +73,7 @@ public class PartitionStepTests {
 		StepExecution stepExecution = jobExecution.createStepExecution("foo");
 		jobRepository.add(stepExecution);
 		step.execute(stepExecution);
-		// one manager and two workers
+		// one master and two workers
 		assertEquals(3, stepExecution.getJobExecution().getStepExecutions().size());
 		assertEquals(BatchStatus.COMPLETED, stepExecution.getStatus());
 	}
@@ -99,7 +98,7 @@ public class PartitionStepTests {
 		StepExecution stepExecution = jobExecution.createStepExecution("foo");
 		jobRepository.add(stepExecution);
 		step.execute(stepExecution);
-		// one manager and two workers
+		// one master and two workers
 		assertEquals(3, stepExecution.getJobExecution().getStepExecutions().size());
 		assertEquals(BatchStatus.FAILED, stepExecution.getStatus());
 	}
@@ -147,7 +146,7 @@ public class PartitionStepTests {
 		stepExecution = jobExecution.createStepExecution("foo");
 		jobRepository.add(stepExecution);
 		step.execute(stepExecution);
-		// one manager and two workers
+		// one master and two workers
 		assertEquals(3, stepExecution.getJobExecution().getStepExecutions().size());
 		assertEquals(BatchStatus.COMPLETED, stepExecution.getStatus());
 	}
@@ -172,7 +171,7 @@ public class PartitionStepTests {
 		StepExecution stepExecution = jobExecution.createStepExecution("foo");
 		jobRepository.add(stepExecution);
 		step.execute(stepExecution);
-		// one manager and two workers
+		// one master and two workers
 		assertEquals(3, stepExecution.getJobExecution().getStepExecutions().size());
 		assertEquals(BatchStatus.STOPPED, stepExecution.getStatus());
 	}

@@ -258,9 +258,9 @@ public class JsrPartitionHandler implements PartitionHandler, InitializingBean {
 
 	/**
 	 * Uses either the {@link PartitionMapper} or the hard coded configuration to split
-	 * the supplied manager StepExecution into the worker StepExecutions.
+	 * the supplied master StepExecution into the slave StepExecutions.
 	 *
-	 * @param stepExecution manager {@link StepExecution}
+	 * @param stepExecution master {@link StepExecution}
 	 * @param isRestart true if this step is being restarted
 	 * @return a {@link Set} of {@link StepExecution}s to be executed
 	 * @throws Exception
