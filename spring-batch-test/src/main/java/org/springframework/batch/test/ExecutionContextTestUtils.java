@@ -44,7 +44,7 @@ public class ExecutionContextTestUtils {
 	@Nullable
 	public static <T> T getValueFromStepInJob(JobExecution jobExecution, String stepName, String key) {
 		StepExecution stepExecution = null;
-		List<String> stepNames = new ArrayList<>();
+		List<String> stepNames = new ArrayList<String>();
 		for (StepExecution candidate : jobExecution.getStepExecutions()) {
 			String name = candidate.getStepName();
 			stepNames.add(name);
