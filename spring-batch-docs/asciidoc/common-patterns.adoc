@@ -443,7 +443,7 @@ public MultiLineTradeItemReader itemReader() {
 
 @Bean
 public FlatFileItemReader flatFileItemReader() {
-	FlatFileItemReader<Trade> reader = new FlatFileItemReaderBuilder<>()
+	FlatFileItemReader<Trade> reader = new FlatFileItemReaderBuilder<Trade>()
 			.name("flatFileItemReader")
 			.resource(new ClassPathResource("data/iosample/input/multiLine.txt"))
 			.lineTokenizer(orderFileTokenizer())

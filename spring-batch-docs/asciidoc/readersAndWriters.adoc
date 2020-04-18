@@ -747,10 +747,10 @@ The file can then be read by correctly constructing a `FlatFileItemReader` and c
 
 [source, java]
 ----
-FlatFileItemReader<Player> itemReader = new FlatFileItemReader<>();
+FlatFileItemReader<Player> itemReader = new FlatFileItemReader<Player>();
 itemReader.setResource(new FileSystemResource("resources/players.csv"));
 //DelimitedLineTokenizer defaults to comma as its delimiter
-DefaultLineMapper<Player> lineMapper = new DefaultLineMapper<>();
+DefaultLineMapper<Player> lineMapper = new DefaultLineMapper<Player>();
 lineMapper.setLineTokenizer(new DelimitedLineTokenizer());
 lineMapper.setFieldSetMapper(new PlayerFieldSetMapper());
 itemReader.setLineMapper(lineMapper);
@@ -1261,7 +1261,7 @@ functionality, as shown in the following example:
 
 [source, java]
 ----
-BeanWrapperFieldExtractor<Name> extractor = new BeanWrapperFieldExtractor<>();
+BeanWrapperFieldExtractor<Name> extractor = new BeanWrapperFieldExtractor<Name>();
 extractor.setNames(new String[] { "first", "last", "born" });
 
 String first = "Alan";
@@ -2841,12 +2841,12 @@ requirements of an `ItemReader`, as illustrated in the following test code:
 
 [source, java]
 ----
-List<String> items = new ArrayList<>();
+List<String> items = new ArrayList<String>();
 items.add("1");
 items.add("2");
 items.add("3");
 
-ItemReader itemReader = new CustomItemReader<>(items);
+ItemReader itemReader = new CustomItemReader<String>(items);
 assertEquals("1", itemReader.read());
 assertEquals("2", itemReader.read());
 assertEquals("3", itemReader.read());
@@ -2919,11 +2919,11 @@ ExecutionContext executionContext = new ExecutionContext();
 assertEquals("1", itemReader.read());
 ((ItemStream)itemReader).update(executionContext);
 
-List<String> items = new ArrayList<>();
+List<String> items = new ArrayList<String>();
 items.add("1");
 items.add("2");
 items.add("3");
-itemReader = new CustomItemReader<>(items);
+itemReader = new CustomItemReader<String>(items);
 
 ((ItemStream)itemReader).open(executionContext);
 assertEquals("2", itemReader.read());
