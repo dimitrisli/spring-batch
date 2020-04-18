@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2007 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,12 @@
 
 package org.springframework.batch.item.file.transform;
 
-import org.springframework.lang.Nullable;
 
 /**
  * Interface that is used by framework to split string obtained typically from a
  * file into tokens.
  * 
  * @author tomas.slanina
- * @author Mahmoud Ben Hassine
  * 
  */
 public interface LineTokenizer {
@@ -36,5 +34,5 @@ public interface LineTokenizer {
 	 * 
 	 * @return the resulting tokens
 	 */
-	FieldSet tokenize(@Nullable String line);
+	FieldSet tokenize(String line);
 }
