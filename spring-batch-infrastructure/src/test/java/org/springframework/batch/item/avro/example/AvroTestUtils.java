@@ -23,7 +23,9 @@ import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.io.Encoder;
 import org.apache.avro.io.EncoderFactory;
+import org.apache.avro.reflect.ReflectDatumWriter;
 import org.apache.avro.specific.SpecificDatumWriter;
+import org.springframework.batch.item.avro.support.AvroTestFixtures;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -31,7 +33,6 @@ import org.springframework.core.io.Resource;
  * Used to create test data. See http://avro.apache.org/docs/1.9.0/gettingstartedjava.html
  *
  * @author David Turanski
- * @author Mahmoud Ben Hassine
  */
 class AvroTestUtils {
 

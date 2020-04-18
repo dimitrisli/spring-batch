@@ -25,10 +25,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * A builder implementation for the {@link AvroItemReader}.
+ * A builder implementation for the {@link AvroItemReader}
  *
  * @author David Turanski
- * @author Mahmoud Ben Hassine
  * @since 4.2
  */
 public class AvroItemReaderBuilder<T> {
@@ -197,7 +196,7 @@ public class AvroItemReaderBuilder<T> {
 
 	private AvroItemReader<T> buildForSchema() {
 		Assert.notNull(this.schema, "'schema' is required.");
-		return new AvroItemReader<>(this.resource, this.schema);
+		return new AvroItemReader<>(resource, schema);
 	}
 
 
