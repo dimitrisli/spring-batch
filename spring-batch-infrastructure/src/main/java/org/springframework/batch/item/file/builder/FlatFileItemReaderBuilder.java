@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,6 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.batch.item.file.BufferedReaderFactory;
-import org.springframework.batch.item.file.DefaultBufferedReaderFactory;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineCallbackHandler;
 import org.springframework.batch.item.file.LineMapper;
@@ -70,9 +68,6 @@ public class FlatFileItemReaderBuilder<T> {
 
 	private RecordSeparatorPolicy recordSeparatorPolicy =
 			new SimpleRecordSeparatorPolicy();
-
-	private BufferedReaderFactory bufferedReaderFactory =
-			new DefaultBufferedReaderFactory();
 
 	private Resource resource;
 
@@ -205,19 +200,6 @@ public class FlatFileItemReaderBuilder<T> {
 		this.recordSeparatorPolicy = policy;
 		return this;
 	}
-
-	/**
-	 * Configure a custom {@link BufferedReaderFactory} for the reader.
-	 *
-	 * @param factory custom factory
-	 * @return The current instance of the builder.
-	 * @see FlatFileItemReader#setBufferedReaderFactory(BufferedReaderFactory)
-	 */
-	public FlatFileItemReaderBuilder<T> bufferedReaderFactory(BufferedReaderFactory factory) {
-		this.bufferedReaderFactory = factory;
-		return this;
-	}
-
 
 	/**
 	 * The {@link Resource} to be used as input.
@@ -447,7 +429,6 @@ public class FlatFileItemReaderBuilder<T> {
 		}
 
 		Assert.notNull(this.recordSeparatorPolicy, "A RecordSeparatorPolicy is required.");
-		Assert.notNull(this.bufferedReaderFactory, "A BufferedReaderFactory is required.");
 		int validatorValue = this.tokenizerValidator.intValue();
 
 		FlatFileItemReader<T> reader = new FlatFileItemReader<>();
@@ -519,7 +500,6 @@ public class FlatFileItemReaderBuilder<T> {
 
 		reader.setSkippedLinesCallback(this.skippedLinesCallback);
 		reader.setRecordSeparatorPolicy(this.recordSeparatorPolicy);
-		reader.setBufferedReaderFactory(this.bufferedReaderFactory);
 		reader.setMaxItemCount(this.maxItemCount);
 		reader.setCurrentItemCount(this.currentItemCount);
 		reader.setSaveState(this.saveState);
