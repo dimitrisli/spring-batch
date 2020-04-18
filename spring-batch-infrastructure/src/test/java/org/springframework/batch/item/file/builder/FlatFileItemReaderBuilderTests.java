@@ -46,7 +46,6 @@ import static org.junit.Assert.fail;
 /**
  * @author Michael Minella
  * @author Mahmoud Ben Hassine
- * @author Drummond Dawson
  */
 public class FlatFileItemReaderBuilderTests {
 
@@ -56,8 +55,8 @@ public class FlatFileItemReaderBuilderTests {
 				.name("fooReader")
 				.resource(getResource("1  2  3"))
 				.fixedLength()
-				.columns(new Range(1, 3), new Range(4, 6), new Range(7))
-				.names("first", "second", "third")
+				.columns(new Range[] {new Range(1, 3), new Range(4, 6), new Range(7)})
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 
@@ -75,7 +74,7 @@ public class FlatFileItemReaderBuilderTests {
 				.name("fooReader")
 				.resource(getResource("1,2,3"))
 				.delimited()
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 
@@ -94,7 +93,7 @@ public class FlatFileItemReaderBuilderTests {
 				.resource(getResource("1 2 3"))
 				.delimited()
 				.delimiter(" ")
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 
@@ -113,7 +112,7 @@ public class FlatFileItemReaderBuilderTests {
 				.resource(getResource("1\t2\t3"))
 				.delimited()
 				.delimiter(DelimitedLineTokenizer.DELIMITER_TAB)
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 
@@ -134,7 +133,7 @@ public class FlatFileItemReaderBuilderTests {
 				.resource(getResource("1,2,3\n4,5,$1,2,3$\n@this is a comment\n6,7, 8"))
 				.delimited()
 				.quoteCharacter('$')
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.linesToSkip(1)
 				.skippedLinesCallback(skippedLines::add)
@@ -171,7 +170,7 @@ public class FlatFileItemReaderBuilderTests {
 				.resource(getResource("1 2%\n  3\n4 5%\n  6\n@this is a comment\n7 8%\n  9\n"))
 				.fixedLength()
 				.columns(new Range[] {new Range(1, 2), new Range(3, 5), new Range(6)})
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.recordSeparatorPolicy(new DefaultRecordSeparatorPolicy("\"", "%"))
 				.maxItemCount(2)
@@ -203,7 +202,7 @@ public class FlatFileItemReaderBuilderTests {
 				.name("fooReader")
 				.resource(new FileSystemResource("this/file/does/not/exist"))
 				.delimited()
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.strict(false)
 				.build();
@@ -251,9 +250,9 @@ public class FlatFileItemReaderBuilderTests {
 		FlatFileItemReader<Foo> reader = new FlatFileItemReaderBuilder<Foo>()
 				.name("fooReader")
 				.resource(getResource("1,2,3\n@this is a comment\n+so is this\n4,5,6"))
-				.comments("@", "+")
+				.comments(new String[] {"@", "+"})
 				.delimited()
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 
@@ -277,7 +276,7 @@ public class FlatFileItemReaderBuilderTests {
 				.name("fooReader")
 				.resource(getResource("1,2,3"))
 				.delimited()
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.prototypeBeanName("foo")
 				.beanFactory(factory)
 				.build();
@@ -296,7 +295,7 @@ public class FlatFileItemReaderBuilderTests {
 				.name("fooReader")
 				.resource(getResource("1,2,3"))
 				.delimited()
-				.names("setFirst", "setSecond", "setThird")
+				.names(new String[] {"setFirst", "setSecond", "setThird"})
 				.targetType(Foo.class)
 				.beanMapperStrict(true)
 				.build();
@@ -317,7 +316,7 @@ public class FlatFileItemReaderBuilderTests {
 				.delimited()
 				.includedFields(new Integer[] {0, 2})
 				.addIncludedField(1)
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 
@@ -384,7 +383,7 @@ public class FlatFileItemReaderBuilderTests {
 					}
 				})
 				.columns(new Range[] {new Range(1, 3), new Range(4, 6), new Range(7)})
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 
@@ -404,7 +403,7 @@ public class FlatFileItemReaderBuilderTests {
 					.resource(getResource("1  2  3"))
 					.fixedLength()
 					.columns(new Range[]{new Range(1, 3), new Range(4, 6), new Range(7)})
-					.names("first", "second", "third")
+					.names(new String[]{"first", "second", "third"})
 					.targetType(Foo.class)
 					.build();
 			fail("null name should throw exception");
@@ -417,7 +416,7 @@ public class FlatFileItemReaderBuilderTests {
 					.resource(getResource("1  2  3"))
 					.fixedLength()
 					.columns(new Range[]{new Range(1, 3), new Range(4, 6), new Range(7)})
-					.names("first", "second", "third")
+					.names(new String[]{"first", "second", "third"})
 					.targetType(Foo.class)
 					.name(null)
 					.build();
@@ -429,7 +428,7 @@ public class FlatFileItemReaderBuilderTests {
 				.resource(getResource("1  2  3"))
 				.fixedLength()
 				.columns(new Range[]{new Range(1, 3), new Range(4, 6), new Range(7)})
-				.names("first", "second", "third")
+				.names(new String[]{"first", "second", "third"})
 				.targetType(Foo.class)
 				.saveState(false)
 				.build());
@@ -438,7 +437,7 @@ public class FlatFileItemReaderBuilderTests {
 				.resource(getResource("1  2  3"))
 				.fixedLength()
 				.columns(new Range[]{new Range(1, 3), new Range(4, 6), new Range(7)})
-				.names("first", "second", "third")
+				.names(new String[]{"first", "second", "third"})
 				.targetType(Foo.class)
 				.name("foobar")
 				.build());
@@ -452,7 +451,7 @@ public class FlatFileItemReaderBuilderTests {
 				.name("fooReader")
 				.resource(getResource("1,2,3"))
 				.delimited()
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 
@@ -468,7 +467,7 @@ public class FlatFileItemReaderBuilderTests {
 				.encoding(encoding)
 				.fixedLength()
 				.columns(new Range[] {new Range(1, 3), new Range(4, 6), new Range(7)})
-				.names("first", "second", "third")
+				.names(new String[] {"first", "second", "third"})
 				.targetType(Foo.class)
 				.build();
 

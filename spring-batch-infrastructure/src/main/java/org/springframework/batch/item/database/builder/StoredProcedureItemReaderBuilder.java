@@ -31,7 +31,6 @@ import org.springframework.util.StringUtils;
  *
  * @author Michael Minella
  * @author Mahmoud Ben Hassine
- * @author Drummond Dawson
  * @since 4.0.0
  * @see StoredProcedureItemReader
  */
@@ -285,7 +284,7 @@ public class StoredProcedureItemReaderBuilder<T> {
 	 * @return this instance for method chaining
 	 * @see StoredProcedureItemReader#setParameters(SqlParameter[])
 	 */
-	public StoredProcedureItemReaderBuilder<T> parameters(SqlParameter... parameters) {
+	public StoredProcedureItemReaderBuilder<T> parameters(SqlParameter[] parameters) {
 		this.parameters = parameters;
 
 		return this;

@@ -16,7 +16,6 @@
 
 package org.springframework.batch.item.data.builder;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +31,6 @@ import org.springframework.util.StringUtils;
  *
  * @author Glenn Renfro
  * @author Mahmoud Ben Hassine
- * @author Drummond Dawson
  * @since 4.0
  * @see MongoItemReader
  */
@@ -43,7 +41,7 @@ public class MongoItemReaderBuilder<T> {
 
 	private Class<? extends T> targetType;
 
-	private Map<String, Sort.Direction> sorts;
+	Map<String, Sort.Direction> sorts;
 
 	private String hint;
 
@@ -175,17 +173,6 @@ public class MongoItemReaderBuilder<T> {
 		this.parameterValues = parameterValues;
 
 		return this;
-	}
-
-	/**
-	 * Values to be substituted in for each of the parameters in the query.
-	 *
-	 * @param parameterValues values
-	 * @return The current instance of the builder
-	 * @see MongoItemReader#setParameterValues(List)
-	 */
-	public MongoItemReaderBuilder<T> parameterValues(Object... parameterValues) {
-		return parameterValues(Arrays.asList(parameterValues));
 	}
 
 	/**
