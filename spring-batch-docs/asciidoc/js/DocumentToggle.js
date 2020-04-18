@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-    var BATCH_LANGUAGES = ["java", "xml", "both"];
     var $xmlButton = $("#xmlButton");
     var $javaButton = $("#javaButton");
     var $bothButton = $("#bothButton");
@@ -11,24 +10,20 @@ $(document).ready(function(){
     var $javaContent = $("*.javaContent");
     var $javaContentAll = $("*.javaContent > *");
 
-    // Initial cookie handler. This part remembers the
-    // reader's choice and sets the toggle accordingly.
-    var lang = window.localStorage.getItem("docToggle");
-    if (BATCH_LANGUAGES.indexOf(lang) === -1) {
-        lang = "java";
-        $javaButton.prop("checked", true);
-        setJava();
-    } else {
-        if (lang === "xml") {
+    setJava();
+
+    // Initial cookie handler. This part remembers the reader's choice and sets the toggle
+    // accordingly.
+    var docToggleCookieString = Cookies.get("docToggle");
+    if (docToggleCookieString != null) {
+        if (docToggleCookieString === "xml") {
             $xmlButton.prop("checked", true);
             setXml();
-        }
-        if (lang === "java") {
+        } else if (docToggleCookieString === "java") {
             $javaButton.prop("checked", true);
             setJava();
-        }
-        if (lang === "both") {
-            $javaButton.prop("checked", true);
+        } else if (docToggleCookieString === "both") {
+            $bothButton.prop("checked", true);
             setBoth();
         }
     }
@@ -53,7 +48,7 @@ $(document).ready(function(){
         $xmlContentAll.removeClass("js-toc-ignore");
         window.dispatchEvent(new Event("tocRefresh"));
         tocbot.refresh();
-        window.localStorage.setItem('docToggle', 'xml');
+        Cookies.set('docToggle', 'xml', { expires: 3652 });
     }
 
     function setJava() {
@@ -63,7 +58,7 @@ $(document).ready(function(){
         $javaContentAll.removeClass("js-toc-ignore");
         window.dispatchEvent(new Event("tocRefresh"));
         tocbot.refresh();
-        window.localStorage.setItem('docToggle', 'java');
+        Cookies.set('docToggle', 'java', { expires: 3652 });
     }
 
     function setBoth() {
@@ -73,7 +68,7 @@ $(document).ready(function(){
         $xmlContentAll.removeClass("js-toc-ignore");
         window.dispatchEvent(new Event("tocRefresh"));
         tocbot.refresh();
-        window.localStorage.setItem('docToggle', 'both');
+        Cookies.set('docToggle', 'both', { expires: 3652 });
     }
 
 });
