@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -39,7 +38,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
@@ -271,20 +269,15 @@ public class KafkaItemReaderTests {
 	}
 
 	@Test
-	public void testReadFromMultiplePartitionsAfterRestart() throws ExecutionException, InterruptedException {
-		List<ListenableFuture> futures = new ArrayList<>();
-		futures.add(this.template.send("topic4", 0, null, "val0"));
-		futures.add(this.template.send("topic4", 0, null, "val2"));
-		futures.add(this.template.send("topic4", 0, null, "val4"));
-		futures.add(this.template.send("topic4", 0, null, "val6"));
-		futures.add(this.template.send("topic4", 1, null, "val1"));
-		futures.add(this.template.send("topic4", 1, null, "val3"));
-		futures.add(this.template.send("topic4", 1, null, "val5"));
-		futures.add(this.template.send("topic4", 1, null, "val7"));
-
-		for (ListenableFuture future : futures) {
-			future.get();
-		}
+	public void testReadFromMultiplePartitionsAfterRestart() {
+		this.template.send("topic4", 0, null, "val0");
+		this.template.send("topic4", 0, null, "val2");
+		this.template.send("topic4", 0, null, "val4");
+		this.template.send("topic4", 0, null, "val6");
+		this.template.send("topic4", 1, null, "val1");
+		this.template.send("topic4", 1, null, "val3");
+		this.template.send("topic4", 1, null, "val5");
+		this.template.send("topic4", 1, null, "val7");
 
 		ExecutionContext executionContext = new ExecutionContext();
 		Map<TopicPartition, Long> offsets = new HashMap<>();
