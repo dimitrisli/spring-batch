@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      https://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,11 +34,10 @@ import org.springframework.orm.jpa.EntityManagerHolder;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 /**
- * @author Thomas Risberg
- * @author Will Schipp
+ * @author Chris Cranford
  * 
  */
-public class JpaItemWriterTests {
+public class JpaItemWriterPersistTests {
 
 	EntityManagerFactory emf;
 
@@ -49,14 +48,15 @@ public class JpaItemWriterTests {
 		if (TransactionSynchronizationManager.isSynchronizationActive()) {
 			TransactionSynchronizationManager.clearSynchronization();
 		}
-		writer = new JpaItemWriter<>();
+		writer = new JpaItemWriter<Object>();
+		writer.setUsePersist(true);
 		emf = mock(EntityManagerFactory.class,"emf");
 		writer.setEntityManagerFactory(emf);
 	}
 
 	@Test
 	public void testAfterPropertiesSet() throws Exception {
-		writer = new JpaItemWriter<>();
+		writer = new JpaItemWriter<Object>();
 		try {
 			writer.afterPropertiesSet();
 			fail("Expected IllegalArgumentException");
@@ -67,43 +67,14 @@ public class JpaItemWriterTests {
 					e.getMessage().indexOf("EntityManagerFactory") >= 0);
 		}
 	}
-
+	
 	@Test
-	public void testWriteAndFlushSunnyDay() throws Exception {
-		EntityManager em = mock(EntityManager.class,"em");
-		em.contains("foo");
-		em.contains("bar");
-		em.merge("bar");
-		em.flush();
+	public void testPersist() throws Exception {
+		EntityManager em = mock(EntityManager.class, "em");
 		TransactionSynchronizationManager.bindResource(emf, new EntityManagerHolder(em));
-
-		List<String> items = Arrays.asList(new String[] { "foo", "bar" });
-
-		writer.write(items);
-
+		List<String> items = Arrays.asList(new String[] { "persist1", "persist2" });
+		writer.write(items);		
 		TransactionSynchronizationManager.unbindResource(emf);
 	}
-
-	@Test
-	public void testWriteAndFlushWithFailure() throws Exception {
-		final RuntimeException ex = new RuntimeException("ERROR");
-		EntityManager em = mock(EntityManager.class,"em");
-		em.contains("foo");
-		em.contains("bar");
-		em.merge("bar");
-		when(em).thenThrow(ex);
-		TransactionSynchronizationManager.bindResource(emf, new EntityManagerHolder(em));
-		List<String> items = Arrays.asList(new String[] { "foo", "bar" });
-
-		try {
-			writer.write(items);
-			fail("Expected RuntimeException");
-		}
-		catch (RuntimeException e) {
-			assertEquals("ERROR", e.getMessage());
-		}
-
-		TransactionSynchronizationManager.unbindResource(emf);
-	}
-
+	
 }
