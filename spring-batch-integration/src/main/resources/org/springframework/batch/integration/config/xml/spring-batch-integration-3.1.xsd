@@ -137,8 +137,6 @@
 			<xsd:documentation><![CDATA[
 						The remote chunking master is used as the writer in batch jobs
 						to communicate with the middleware used to send chunks remotely.
-						This element is deprecated in favor of "remote-chunking-manager"
-						defined in "spring-batch-integration-4.2.xsd" and above.
 					]]></xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexType>
@@ -188,8 +186,6 @@
 						The remote chunking slave receives chunks sent by the master and
 						provides the processor and writer to handle the chunks, returning
 						status back to the master.
-						This element is deprecated in favor of "remote-chunking-worker"
-						defined in "spring-batch-integration-4.2.xsd" and above.
 					]]></xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexType>

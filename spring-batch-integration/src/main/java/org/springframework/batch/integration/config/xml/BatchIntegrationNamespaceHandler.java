@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2019 the original author or authors.
+ * Copyright 2002-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import org.springframework.integration.config.xml.AbstractIntegrationNamespaceHa
  *
  * @author Gunnar Hillert
  * @author Chris Schaefer
- * @author Mahmoud Ben Hassine
  * @since 1.3
  */
 public class BatchIntegrationNamespaceHandler extends AbstractIntegrationNamespaceHandler {
@@ -31,13 +30,7 @@ public class BatchIntegrationNamespaceHandler extends AbstractIntegrationNamespa
 	 */
 	public void init() {
 		this.registerBeanDefinitionParser("job-launching-gateway",  new JobLaunchingGatewayParser());
-		RemoteChunkingManagerParser remoteChunkingManagerParser = new RemoteChunkingManagerParser();
-		this.registerBeanDefinitionParser("remote-chunking-manager", remoteChunkingManagerParser);
-		RemoteChunkingWorkerParser remoteChunkingWorkerParser = new RemoteChunkingWorkerParser();
-		this.registerBeanDefinitionParser("remote-chunking-worker", remoteChunkingWorkerParser);
-
-		// TODO remove the following when related deprecated APIs are removed
-		this.registerBeanDefinitionParser("remote-chunking-master", remoteChunkingManagerParser);
-		this.registerBeanDefinitionParser("remote-chunking-slave", remoteChunkingWorkerParser);
+		this.registerBeanDefinitionParser("remote-chunking-master", new RemoteChunkingMasterParser());
+		this.registerBeanDefinitionParser("remote-chunking-slave", new RemoteChunkingSlaveParser());
 	}
 }

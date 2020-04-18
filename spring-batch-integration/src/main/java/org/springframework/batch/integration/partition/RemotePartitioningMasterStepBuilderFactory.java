@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 the original author or authors.
+ * Copyright 2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,12 +28,9 @@ import org.springframework.transaction.PlatformTransactionManager;
  * the {@link JobRepository}, {@link JobExplorer}, {@link BeanFactory} and
  * {@link PlatformTransactionManager} automatically.
  *
- * @deprecated Use {@link RemotePartitioningManagerStepBuilderFactory} instead
- *
  * @since 4.1
  * @author Mahmoud Ben Hassine
  */
-@Deprecated
 public class RemotePartitioningMasterStepBuilderFactory implements BeanFactoryAware {
 
 	private BeanFactory beanFactory;
