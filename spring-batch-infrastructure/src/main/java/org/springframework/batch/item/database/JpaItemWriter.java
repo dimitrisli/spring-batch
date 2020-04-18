@@ -50,7 +50,6 @@ public class JpaItemWriter<T> implements ItemWriter<T>, InitializingBean {
 	protected static final Log logger = LogFactory.getLog(JpaItemWriter.class);
 
 	private EntityManagerFactory entityManagerFactory;
-	private boolean usePersist = false;
 
 	/**
 	 * Set the EntityManager to be used internally.
@@ -59,15 +58,6 @@ public class JpaItemWriter<T> implements ItemWriter<T>, InitializingBean {
 	 */
 	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
 		this.entityManagerFactory = entityManagerFactory;
-	}
-	
-	/**
-	 * Set whether the EntityManager should perform a persist instead of a merge.
-	 * 
-	 * @param usePersist whether to use persist instead of merge.
-	 */
-	public void setUsePersist(boolean usePersist) {
-		this.usePersist = usePersist;
 	}
 
 	/**
@@ -108,21 +98,16 @@ public class JpaItemWriter<T> implements ItemWriter<T>, InitializingBean {
 		}
 
 		if (!items.isEmpty()) {
-			long addedToContextCount = 0;
+			long mergeCount = 0;
 			for (T item : items) {
 				if (!entityManager.contains(item)) {
-					if(usePersist) {
-						entityManager.persist(item);
-					}
-					else {
-						entityManager.merge(item);
-					}					
-					addedToContextCount++;
+					entityManager.merge(item);
+					mergeCount++;
 				}
 			}
 			if (logger.isDebugEnabled()) {
-				logger.debug(addedToContextCount + " entities " + (usePersist ? " persisted." : "merged."));
-				logger.debug((items.size() - addedToContextCount) + " entities found in persistence context.");
+				logger.debug(mergeCount + " entities merged.");
+				logger.debug((items.size() - mergeCount) + " entities found in persistence context.");
 			}
 		}
 
