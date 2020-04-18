@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2018 the original author or authors.
+ * Copyright 2006-2013 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.springframework.lang.Nullable;
-
 /**
  * Value object representing runtime parameters to a batch job. Because the
  * parameters have no individual meaning outside of the JobParameters they are
@@ -37,7 +35,6 @@ import org.springframework.lang.Nullable;
  * 
  * @author Lucas Ward
  * @author Michael Minella
- * @author Mahmoud Ben Hassine
  * @since 1.0
  */
 @SuppressWarnings("serial")
@@ -57,15 +54,14 @@ public class JobParameters implements Serializable {
 	 * Typesafe Getter for the Long represented by the provided key.
 	 * 
 	 * @param key The key to get a value for
-	 * @return The <code>Long</code> value or {@code null} if the key is absent
+	 * @return The <code>Long</code> value
 	 */
-	@Nullable
 	public Long getLong(String key){
 		if (!parameters.containsKey(key)) {
-			return null;
+			return 0L;
 		}
 		Object value = parameters.get(key).getValue();
-		return value==null ? null : ((Long)value).longValue();
+		return value==null ? 0L : ((Long)value).longValue();
 	}
 
 	/**
@@ -76,30 +72,8 @@ public class JobParameters implements Serializable {
 	 * @param defaultValue to return if the value doesn't exist
 	 * @return the parameter represented by the provided key, defaultValue
 	 * otherwise.
-	 * @deprecated Use {@link JobParameters#getLong(java.lang.String, java.lang.Long)}
-	 * instead. This method will be removed in a future release.
 	 */
-	@Deprecated
 	public Long getLong(String key, long defaultValue){
-		if(parameters.containsKey(key)){
-			return getLong(key);
-		}
-		else{
-			return defaultValue;
-		}
-	}
-
-	/**
-	 * Typesafe Getter for the Long represented by the provided key.  If the
-	 * key does not exist, the default value will be returned.
-	 *
-	 * @param key to return the value for
-	 * @param defaultValue to return if the value doesn't exist
-	 * @return the parameter represented by the provided key, defaultValue
-	 * otherwise.
-	 */
-	@Nullable
-	public Long getLong(String key, @Nullable Long defaultValue){
 		if(parameters.containsKey(key)){
 			return getLong(key);
 		}
@@ -112,9 +86,8 @@ public class JobParameters implements Serializable {
 	 * Typesafe Getter for the String represented by the provided key.
 	 * 
 	 * @param key The key to get a value for
-	 * @return The <code>String</code> value or {@code null} if the key is absent
+	 * @return The <code>String</code> value
 	 */
-	@Nullable
 	public String getString(String key){
 		JobParameter value = parameters.get(key);
 		return value==null ? null : value.toString();
@@ -129,8 +102,7 @@ public class JobParameters implements Serializable {
 	 * @return the parameter represented by the provided key, defaultValue
 	 * otherwise.
 	 */
-	@Nullable
-	public String getString(String key, @Nullable String defaultValue){
+	public String getString(String key, String defaultValue){
 		if(parameters.containsKey(key)){
 			return getString(key);
 		}
@@ -143,15 +115,14 @@ public class JobParameters implements Serializable {
 	 * Typesafe Getter for the Long represented by the provided key.
 	 * 
 	 * @param key The key to get a value for
-	 * @return The <code>Double</code> value or {@code null} if the key is absent
+	 * @return The <code>Double</code> value
 	 */
-	@Nullable
 	public Double getDouble(String key){
 		if (!parameters.containsKey(key)) {
-			return null;
+			return 0.0;
 		}
 		Double value = (Double)parameters.get(key).getValue();
-		return value==null ? null : value.doubleValue();
+		return value==null ? 0.0 : value.doubleValue();
 	}
 
 	/**
@@ -162,30 +133,8 @@ public class JobParameters implements Serializable {
 	 * @param defaultValue to return if the value doesn't exist
 	 * @return the parameter represented by the provided key, defaultValue
 	 * otherwise.
-	 * @deprecated Use {@link JobParameters#getDouble(java.lang.String, java.lang.Double)}
-	 * instead. This method will be removed in a future release.
 	 */
-	@Deprecated
 	public Double getDouble(String key, double defaultValue){
-		if(parameters.containsKey(key)){
-			return getDouble(key);
-		}
-		else{
-			return defaultValue;
-		}
-	}
-
-	/**
-	 * Typesafe Getter for the Double represented by the provided key.  If the
-	 * key does not exist, the default value will be returned.
-	 *
-	 * @param key to return the value for
-	 * @param defaultValue to return if the value doesn't exist
-	 * @return the parameter represented by the provided key, defaultValue
-	 * otherwise.
-	 */
-	@Nullable
-	public Double getDouble(String key, @Nullable Double defaultValue){
 		if(parameters.containsKey(key)){
 			return getDouble(key);
 		}
@@ -198,10 +147,8 @@ public class JobParameters implements Serializable {
 	 * Typesafe Getter for the Date represented by the provided key.
 	 * 
 	 * @param key The key to get a value for
-	 * @return The <code>java.util.Date</code> value or {@code null} if the key
-	 * is absent
+	 * @return The <code>java.util.Date</code> value
 	 */
-	@Nullable
 	public Date getDate(String key){
 		return this.getDate(key,null);
 	}
@@ -215,8 +162,7 @@ public class JobParameters implements Serializable {
 	 * @return the parameter represented by the provided key, defaultValue
 	 * otherwise.
 	 */
-	@Nullable
-	public Date getDate(String key, @Nullable Date defaultValue){
+	public Date getDate(String key, Date defaultValue){
 		if(parameters.containsKey(key)){
 			return (Date)parameters.get(key).getValue();
 		}

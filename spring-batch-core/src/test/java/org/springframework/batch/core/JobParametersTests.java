@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2018 the original author or authors.
+ * Copyright 2008-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,6 @@ import org.springframework.util.SerializationUtils;
  * @author Lucas Ward
  * @author Dave Syer
  * @author Michael Minella
- * @author Mahmoud Ben Hassine
  *
  */
 public class JobParametersTests {
@@ -75,7 +74,7 @@ public class JobParametersTests {
 	@Test
 	public void testGetNullString() {
 		parameters = new JobParameters(Collections.singletonMap("string.key1", new JobParameter((String) null, true)));
-		assertNull(parameters.getDate("string.key1"));
+		assertEquals(null, parameters.getDate("string.key1"));
 	}
 
 	@Test
@@ -99,23 +98,23 @@ public class JobParametersTests {
 	@Test
 	public void testGetNullDate() {
 		parameters = new JobParameters(Collections.singletonMap("date.key1", new JobParameter((Date)null, true)));
-		assertNull(parameters.getDate("date.key1"));
+		assertEquals(null, parameters.getDate("date.key1"));
 	}
 
 	@Test
 	public void testGetEmptyLong() {
 		parameters = new JobParameters(Collections.singletonMap("long1", new JobParameter((Long)null, true)));
-		assertNull(parameters.getLong("long1"));
+		assertEquals(0L, parameters.getLong("long1").longValue());
 	}
 
 	@Test
 	public void testGetMissingLong() {
-		assertNull(parameters.getLong("missing.long1"));
+		assertEquals(0L, parameters.getLong("missing.long1").longValue());
 	}
 
 	@Test
 	public void testGetMissingDouble() {
-		assertNull(parameters.getDouble("missing.double1"));
+		assertEquals(0.0, parameters.getDouble("missing.double1"), 0.0001);
 	}
 
 	@Test
@@ -210,8 +209,8 @@ public class JobParametersTests {
 	}
 
 	@Test
-	public void testLongReturnsNullWhenKeyDoesntExit(){
-		assertNull(new JobParameters().getLong("keythatdoesntexist"));
+	public void testLongReturns0WhenKeyDoesntExit(){
+		assertEquals(0L,new JobParameters().getLong("keythatdoesntexist").longValue());
 	}
 
 	@Test
@@ -220,8 +219,8 @@ public class JobParametersTests {
 	}
 
 	@Test
-	public void testDoubleReturnsNullWhenKeyDoesntExit(){
-		assertNull(new JobParameters().getDouble("keythatdoesntexist"));
+	public void testDoubleReturns0WhenKeyDoesntExit(){
+		assertEquals(0.0,new JobParameters().getLong("keythatdoesntexist"), 0.0001);
 	}
 
 	@Test

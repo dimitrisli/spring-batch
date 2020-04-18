@@ -33,7 +33,6 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -132,10 +131,10 @@ public class JobParametersBuilderTests {
 		this.parametersBuilder.addDouble("DOUBLE", null);
 
 		JobParameters parameters = this.parametersBuilder.toJobParameters();
-		assertNull(parameters.getDate("SCHEDULE_DATE"));
-		assertNull(parameters.getLong("LONG"));
-		assertNull(parameters.getString("STRING"));
-		assertNull(parameters.getLong("DOUBLE"));
+		assertEquals(null, parameters.getDate("SCHEDULE_DATE"));
+		assertEquals(0L, parameters.getLong("LONG").longValue());
+		assertEquals(null, parameters.getString("STRING"));
+		assertEquals(0, parameters.getLong("DOUBLE").doubleValue(), 1e-15);
 	}
 
 	@Test
