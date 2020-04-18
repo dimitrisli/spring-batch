@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 the original author or authors.
+ * Copyright 2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,6 @@ import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.Nullable;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -188,7 +187,6 @@ public class ItemListenerErrorTests {
 
 		private boolean goingToFail = false;
 
-		@Nullable
 		@Override
 		public String process(String item) throws Exception {
 			if(goingToFail) {
@@ -212,7 +210,6 @@ public class ItemListenerErrorTests {
 
 		private int count = 0;
 
-		@Nullable
 		@Override
 		public String read() throws Exception {
 			count++;
@@ -270,7 +267,7 @@ public class ItemListenerErrorTests {
 		}
 
 		@Override
-		public void afterProcess(String item, @Nullable String result) {
+		public void afterProcess(String item, String result) {
 			if (methodToThrowExceptionFrom.equals("afterProcess")) {
 				throw new RuntimeException("afterProcess caused this Exception");
 			}

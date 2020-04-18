@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.batch.item.ItemReader;
-import org.springframework.lang.Nullable;
 
 /**
  * An {@link ItemReader} that delivers a list as its item, storing up objects
@@ -52,7 +51,6 @@ public class AggregateItemReader<T> implements ItemReader<List<T>> {
 	 *
 	 * @see org.springframework.batch.item.ItemReader#read()
 	 */
-	@Nullable
 	@Override
 	public List<T> read() throws Exception {
 		ResultHolder holder = new ResultHolder();

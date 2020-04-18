@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,6 @@ import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.batch.item.support.ListItemWriter;
 import org.springframework.batch.item.support.PassThroughItemProcessor;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
-import org.springframework.lang.Nullable;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import static org.junit.Assert.assertEquals;
@@ -257,7 +256,6 @@ public class StepBuilderTests {
 			beforeStepCount++;
 		}
 
-		@Nullable
 		@Override
 		public ExitStatus afterStep(StepExecution stepExecution) {
 			afterStepCount++;

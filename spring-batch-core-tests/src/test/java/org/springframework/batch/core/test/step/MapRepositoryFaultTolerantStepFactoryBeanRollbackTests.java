@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2019 the original author or authors.
+ * Copyright 2010-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
-import org.springframework.lang.Nullable;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.util.Assert;
@@ -177,7 +176,6 @@ public class MapRepositoryFaultTolerantStepFactoryBeanRollbackTests {
 			counter = -1;
 		}
 
-		@Nullable
 		@Override
 		public synchronized String read() throws Exception {
 			counter++;
@@ -238,7 +236,6 @@ public class MapRepositoryFaultTolerantStepFactoryBeanRollbackTests {
 			processed.clear();
 		}
 
-		@Nullable
 		@Override
 		public String process(String item) throws Exception {
 			processed.add(item);

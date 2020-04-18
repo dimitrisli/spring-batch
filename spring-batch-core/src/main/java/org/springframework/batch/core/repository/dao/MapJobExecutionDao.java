@@ -106,7 +106,6 @@ public class MapJobExecutionDao implements JobExecutionDao {
 		}
 	}
 
-	@Nullable
 	@Override
 	public JobExecution getLastJobExecution(@Nullable JobInstance jobInstance) {
 		JobExecution lastExec = null;

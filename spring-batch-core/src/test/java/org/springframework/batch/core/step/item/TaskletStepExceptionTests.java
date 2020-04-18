@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2019 the original author or authors.
+ * Copyright 2008-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,6 @@ import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.ItemStreamSupport;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.batch.support.transaction.ResourcelessTransactionManager;
-import org.springframework.lang.Nullable;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.support.DefaultTransactionStatus;
@@ -107,7 +106,6 @@ public class TaskletStepExceptionTests {
 	@Test
 	public void testInterruptedWithCustomStatus() throws Exception {
 		taskletStep.setTasklet(new Tasklet() {
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 				contribution.setExitStatus(new ExitStatus("FUNNY"));
@@ -156,7 +154,6 @@ public class TaskletStepExceptionTests {
 
 		final RuntimeException exception = new RuntimeException();
 		taskletStep.setStepExecutionListeners(new StepExecutionListenerSupport[] { new StepExecutionListenerSupport() {
-			@Nullable
 			@Override
 			public ExitStatus afterStep(StepExecution stepExecution) {
 				throw exception;
@@ -164,7 +161,6 @@ public class TaskletStepExceptionTests {
 		} });
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				return RepeatStatus.FINISHED;
@@ -185,7 +181,6 @@ public class TaskletStepExceptionTests {
 
 		final RuntimeException exception = new RuntimeException();
 		taskletStep.setStepExecutionListeners(new StepExecutionListenerSupport[] { new StepExecutionListenerSupport() {
-			@Nullable
 			@Override
 			public ExitStatus afterStep(StepExecution stepExecution) {
 				throw exception;
@@ -235,7 +230,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				attributes.getStepContext().getStepExecution().getExecutionContext().putString("foo", "bar");
@@ -271,7 +265,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				attributes.getStepContext().getStepExecution().getExecutionContext().putString("foo", "bar");
@@ -298,7 +291,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				return RepeatStatus.FINISHED;
@@ -319,7 +311,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				return RepeatStatus.FINISHED;
@@ -341,7 +332,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				return RepeatStatus.FINISHED;
@@ -365,7 +355,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				return RepeatStatus.FINISHED;
@@ -386,7 +375,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				return RepeatStatus.FINISHED;
@@ -408,7 +396,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				return RepeatStatus.FINISHED;
@@ -432,7 +419,6 @@ public class TaskletStepExceptionTests {
 
 		taskletStep.setTasklet(new Tasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution, ChunkContext attributes) throws Exception {
 				throw new RuntimeException("Tasklet exception");
@@ -473,7 +459,6 @@ public class TaskletStepExceptionTests {
 
 	private static class ExceptionTasklet implements Tasklet {
 
-		@Nullable
 		@Override
 		public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 			throw taskletException;
@@ -520,7 +505,6 @@ public class TaskletStepExceptionTests {
 			return null;
 		}
 
-		@Nullable
 		@Override
 		public StepExecution getLastStepExecution(JobInstance jobInstance, String stepName) {
 			return null;
@@ -564,7 +548,6 @@ public class TaskletStepExceptionTests {
 			return updateCount;
 		}
 
-		@Nullable
 		@Override
 		public JobExecution getLastJobExecution(String jobName, JobParameters jobParameters) {
 			return null;

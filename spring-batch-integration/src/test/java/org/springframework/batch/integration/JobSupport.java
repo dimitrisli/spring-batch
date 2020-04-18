@@ -5,7 +5,6 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParametersIncrementer;
 import org.springframework.batch.core.JobParametersValidator;
 import org.springframework.batch.core.job.DefaultJobParametersValidator;
-import org.springframework.lang.Nullable;
 
 public class JobSupport implements Job {
 	
@@ -26,7 +25,6 @@ public class JobSupport implements Job {
 		return false;
 	}
 	
-	@Nullable
 	public JobParametersIncrementer getJobParametersIncrementer() {
 		return null;
 	}

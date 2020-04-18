@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2007 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.springframework.lang.Nullable;
 
 /**
  * @author Ben Hale
@@ -47,7 +46,7 @@ public class PatternMatchingCompositeLineTokenizerTests {
 		map.put("*", new DelimitedLineTokenizer());
 		map.put("foo", new LineTokenizer() {
             @Override
-			public FieldSet tokenize(@Nullable String line) {
+			public FieldSet tokenize(String line) {
 				return null;
 			}
 		});
@@ -63,7 +62,7 @@ public class PatternMatchingCompositeLineTokenizerTests {
 		Map<String, LineTokenizer> map = new LinkedHashMap<>();
 		map.put("*", new LineTokenizer() {
             @Override
-			public FieldSet tokenize(@Nullable String line) {
+			public FieldSet tokenize(String line) {
 				return null;
 			}
 		});
@@ -85,7 +84,7 @@ public class PatternMatchingCompositeLineTokenizerTests {
 	public void testMatchWithPrefix() throws Exception {
 		tokenizer.setTokenizers(Collections.singletonMap("foo*", (LineTokenizer) new LineTokenizer() {
             @Override
-			public FieldSet tokenize(@Nullable String line) {
+			public FieldSet tokenize(String line) {
 				return new DefaultFieldSet(new String[] { line });
 			}
 		}));

@@ -39,7 +39,6 @@ import org.springframework.batch.item.xml.stax.DefaultFragmentEventReader;
 import org.springframework.batch.item.xml.stax.FragmentEventReader;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
-import org.springframework.lang.Nullable;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
@@ -230,7 +229,6 @@ ResourceAwareItemReaderItemStream<T>, InitializingBean {
 	/**
 	 * Move to next fragment and map it to item.
 	 */
-	@Nullable
 	@Override
 	protected T doRead() throws IOException, XMLStreamException {
 

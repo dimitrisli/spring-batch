@@ -243,7 +243,6 @@ public class JdbcJobExecutionDao extends AbstractJdbcBatchMetadataDao implements
 		}
 	}
 
-	@Nullable
 	@Override
 	public JobExecution getLastJobExecution(JobInstance jobInstance) {
 

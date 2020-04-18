@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2010 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ import org.springframework.batch.core.step.NoSuchStepException;
 import org.springframework.batch.core.step.StepLocator;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.lang.Nullable;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
@@ -237,8 +236,7 @@ public class DefaultJobLoaderTests {
 		public void execute(JobExecution execution) {
         }
 
-        @Nullable
-		@Override
+        @Override
 		public JobParametersIncrementer getJobParametersIncrementer() {
             return null;
         }
@@ -266,8 +264,7 @@ public class DefaultJobLoaderTests {
             return Collections.emptyList();
         }
 
-        @Nullable
-		@Override
+        @Override
 		public Step getStep(String stepName) throws NoSuchStepException {
             throw new NoSuchStepException("Step [" + stepName + "] does not exist");
         }

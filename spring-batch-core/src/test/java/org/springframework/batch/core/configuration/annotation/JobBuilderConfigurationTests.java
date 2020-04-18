@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.Nullable;
 
 /**
  * @author Dave Syer
@@ -133,7 +132,6 @@ public class JobBuilderConfigurationTests {
 		@Bean
 		protected Tasklet tasklet() {
 			return new Tasklet() {
-				@Nullable
 				@Override
 				public RepeatStatus execute(StepContribution contribution, ChunkContext context) throws Exception {
 					if (fail) {
@@ -219,7 +217,6 @@ public class JobBuilderConfigurationTests {
 		protected Step step1() throws Exception {
 			return steps.get("step1").tasklet(new Tasklet() {
 
-				@Nullable
 				@Override
 				public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 					return null;

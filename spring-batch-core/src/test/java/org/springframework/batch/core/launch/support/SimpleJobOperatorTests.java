@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,6 @@ import org.springframework.batch.core.step.tasklet.StoppableTasklet;
 import org.springframework.batch.core.step.tasklet.TaskletStep;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.batch.support.PropertiesConverter;
-import org.springframework.lang.Nullable;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -87,7 +86,6 @@ public class SimpleJobOperatorTests {
 	public void setUp() throws Exception {
 
 		job = new JobSupport("foo") {
-			@Nullable
 			@Override
 			public JobParametersIncrementer getJobParametersIncrementer() {
 				return parameters -> jobParameters;
@@ -98,7 +96,7 @@ public class SimpleJobOperatorTests {
 
 		jobOperator.setJobRegistry(new MapJobRegistry() {
 			@Override
-			public Job getJob(@Nullable String name) throws NoSuchJobException {
+			public Job getJob(String name) throws NoSuchJobException {
 				if (name.equals("foo")) {
 					return job;
 				}
@@ -122,13 +120,13 @@ public class SimpleJobOperatorTests {
 
 		jobOperator.setJobParametersConverter(new DefaultJobParametersConverter() {
 			@Override
-			public JobParameters getJobParameters(@Nullable Properties props) {
+			public JobParameters getJobParameters(Properties props) {
 				assertTrue("Wrong properties", props.containsKey("a"));
 				return jobParameters;
 			}
 
 			@Override
-			public Properties getProperties(@Nullable JobParameters params) {
+			public Properties getProperties(JobParameters params) {
 				return PropertiesConverter.stringToProperties("a=b");
 			}
 		});
@@ -396,7 +394,6 @@ public class SimpleJobOperatorTests {
 		JobExecution jobExecution = new JobExecution(jobInstance, 111L, jobParameters, null);
 		StoppableTasklet tasklet = new StoppableTasklet() {
 
-			@Nullable
 			@Override
 			public RepeatStatus execute(StepContribution contribution,
 					ChunkContext chunkContext) throws Exception {
@@ -453,7 +450,6 @@ public class SimpleJobOperatorTests {
 
 		private TaskletStep taskletStep;
 
-		@Nullable
 		@Override
 		public Step getStep(String stepName) {
 			return taskletStep;

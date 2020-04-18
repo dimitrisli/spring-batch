@@ -8,7 +8,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,7 +39,6 @@ public class TestItemReader<T> implements ItemReader<T> {
 		this.items = items;
 	}
 
-	@Nullable
 	public T read() throws Exception, UnexpectedInputException, ParseException {
 
 		if (count>=items.size()) {

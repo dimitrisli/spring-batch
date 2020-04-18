@@ -46,7 +46,6 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.step.JobRepositorySupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 
 import static org.junit.Assert.assertEquals;
@@ -457,13 +456,12 @@ public class CommandLineJobRunnerTests {
 		static JobParameters jobParameters = new JobParameters();
 
 		@Override
-		public Set<JobExecution> findRunningJobExecutions(@Nullable String jobName) {
+		public Set<JobExecution> findRunningJobExecutions(String jobName) {
 			return new HashSet<>();
 		}
 
-		@Nullable
 		@Override
-		public JobExecution getJobExecution(@Nullable Long executionId) {
+		public JobExecution getJobExecution(Long executionId) {
 			if (jobExecution != null) {
 				return jobExecution;
 			}
@@ -504,19 +502,16 @@ public class CommandLineJobRunnerTests {
 			return jobExecution;
 		}
 
-		@Nullable
 		@Override
-		public JobInstance getJobInstance(@Nullable Long instanceId) {
+		public JobInstance getJobInstance(Long instanceId) {
 			throw new UnsupportedOperationException();
 		}
 
-		@Nullable
 		@Override
 		public JobInstance getLastJobInstance(String jobName) {
 			return null;
 		}
 
-		@Nullable
 		@Override
 		public JobExecution getLastJobExecution(JobInstance jobInstance) {
 			return null;
@@ -532,9 +527,8 @@ public class CommandLineJobRunnerTests {
 			return result;
 		}
 
-		@Nullable
 		@Override
-		public StepExecution getStepExecution(@Nullable Long jobExecutionId, @Nullable Long stepExecutionId) {
+		public StepExecution getStepExecution(Long jobExecutionId, Long stepExecutionId) {
 			throw new UnsupportedOperationException();
 		}
 
@@ -549,7 +543,7 @@ public class CommandLineJobRunnerTests {
 		}
 
 		@Override
-		public int getJobInstanceCount(@Nullable String jobName)
+		public int getJobInstanceCount(String jobName)
 				throws NoSuchJobException {
 			int count = 0;
 
@@ -575,13 +569,13 @@ public class CommandLineJobRunnerTests {
 		static boolean called = false;
 
 		@Override
-		public JobParameters getJobParameters(@Nullable Properties properties) {
+		public JobParameters getJobParameters(Properties properties) {
 			called = true;
 			return delegate.getJobParameters(properties);
 		}
 
 		@Override
-		public Properties getProperties(@Nullable JobParameters params) {
+		public Properties getProperties(JobParameters params) {
 			throw new UnsupportedOperationException();
 		}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2019 the original author or authors.
+ * Copyright 2013-2014 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -72,7 +71,6 @@ public class RestartInPriorStepTests {
 
 	public static class DecidingTasklet implements Tasklet {
 
-		@Nullable
 		@Override
 		public RepeatStatus execute(StepContribution contribution,
 				ChunkContext chunkContext) throws Exception {
@@ -95,7 +93,7 @@ public class RestartInPriorStepTests {
 
 		@Override
 		public FlowExecutionStatus decide(JobExecution jobExecution,
-										  @Nullable StepExecution stepExecution) {
+				StepExecution stepExecution) {
 			count++;
 
 			if(count > 2) {

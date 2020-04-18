@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2019 the original author or authors.
+ * Copyright 2015 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
@@ -52,7 +51,6 @@ public class SynchronizedItemStreamReader<T> implements ItemStreamReader<T>, Ini
 	/**
 	 * This delegates to the read method of the <code>delegate</code>
 	 */
-	@Nullable
 	public synchronized T read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
 		return this.delegate.read();
 	}
