@@ -78,7 +78,7 @@ public class MapRepositoryFaultTolerantStepFactoryBeanTests {
 		writer = new SkipWriterStub();
 		processor = new SkipProcessorStub();
 
-		factory = new FaultTolerantStepFactoryBean<>();
+		factory = new FaultTolerantStepFactoryBean<String, String>();
 
 		factory.setBeanName("stepName");
 		factory.setTransactionManager(transactionManager);
@@ -135,10 +135,10 @@ public class MapRepositoryFaultTolerantStepFactoryBeanTests {
 				step.execute(stepExecution);
 				assertEquals(BatchStatus.COMPLETED, stepExecution.getStatus());
 
-				List<String> committed = new ArrayList<>(writer.getWritten());
+				List<String> committed = new ArrayList<String>(writer.getWritten());
 				Collections.sort(committed);
 				assertEquals("[1, 2, 3, 4, 5]", committed.toString());
-				List<String> processed = new ArrayList<>(processor.getProcessed());
+				List<String> processed = new ArrayList<String>(processor.getProcessed());
 				Collections.sort(processed);
 				assertEquals("[1, 2, 3, 4, 5]", processed.toString());
 				assertEquals(0, stepExecution.getSkipCount());
@@ -185,7 +185,7 @@ public class MapRepositoryFaultTolerantStepFactoryBeanTests {
 
 	private static class SkipWriterStub implements ItemWriter<String> {
 
-		private List<String> written = new CopyOnWriteArrayList<>();
+		private List<String> written = new CopyOnWriteArrayList<String>();
 
 		private Collection<String> failures = Collections.emptySet();
 
@@ -216,7 +216,7 @@ public class MapRepositoryFaultTolerantStepFactoryBeanTests {
 
 		private final Log logger = LogFactory.getLog(getClass());
 
-		private List<String> processed = new CopyOnWriteArrayList<>();
+		private List<String> processed = new CopyOnWriteArrayList<String>();
 		
 		public List<String> getProcessed() {
 			return processed;

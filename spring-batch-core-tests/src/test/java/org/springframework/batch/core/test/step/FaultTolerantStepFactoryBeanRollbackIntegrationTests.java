@@ -93,7 +93,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 		writer = new SkipWriterStub(dataSource);
 		processor = new SkipProcessorStub(dataSource);
 
-		factory = new FaultTolerantStepFactoryBean<>();
+		factory = new FaultTolerantStepFactoryBean<String, String>();
 
 		factory.setBeanName("stepName");
 		factory.setTransactionManager(transactionManager);
@@ -167,7 +167,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 
 				assertEquals("[]", writer.getCommitted().toString());
 				assertEquals("[]", processor.getCommitted().toString());
-				List<String> processed = new ArrayList<>(processor.getProcessed());
+				List<String> processed = new ArrayList<String>(processor.getProcessed());
 				Collections.sort(processed);
 				assertEquals("[1, 1, 2, 2, 3, 3, 4, 4, 5, 5]", processed.toString());
 				assertEquals(5, stepExecution.getSkipCount());
@@ -184,7 +184,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 
 	@SuppressWarnings("unchecked")
 	private Map<Class<? extends Throwable>, Boolean> getExceptionMap(Class<? extends Throwable>... args) {
-		Map<Class<? extends Throwable>, Boolean> map = new HashMap<>();
+		Map<Class<? extends Throwable>, Boolean> map = new HashMap<Class<? extends Throwable>, Boolean>();
 		for (Class<? extends Throwable> arg : args) {
 			map.put(arg, true);
 		}
@@ -223,7 +223,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 
 	private static class SkipWriterStub implements ItemWriter<String> {
 
-		private List<String> written = new CopyOnWriteArrayList<>();
+		private List<String> written = new CopyOnWriteArrayList<String>();
 
 		private Collection<String> failures = Collections.emptySet();
 
@@ -272,7 +272,7 @@ public class FaultTolerantStepFactoryBeanRollbackIntegrationTests {
 
 		private final Log logger = LogFactory.getLog(getClass());
 
-		private List<String> processed = new CopyOnWriteArrayList<>();
+		private List<String> processed = new CopyOnWriteArrayList<String>();
 
 		private JdbcTemplate jdbcTemplate;
 
