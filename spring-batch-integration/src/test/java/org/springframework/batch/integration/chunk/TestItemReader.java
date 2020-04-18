@@ -30,7 +30,7 @@ public class TestItemReader<T> implements ItemReader<T> {
 	 */
 	public static final String WAIT_ON = "wait";
 
-	private List<T> items = new ArrayList<>();
+	private List<T> items = new ArrayList<T>();
 	
 	/**
 	 * @param items the items to set

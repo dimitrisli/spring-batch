@@ -30,7 +30,7 @@ public class RetryRepeatTransactionalPollingIntegrationTests implements Applicat
 
 	private Log logger = LogFactory.getLog(getClass());
 
-	private volatile static List<String> list = new ArrayList<>();
+	private volatile static List<String> list = new ArrayList<String>();
 
 	@Autowired
 	private SimpleRecoverer recoverer;

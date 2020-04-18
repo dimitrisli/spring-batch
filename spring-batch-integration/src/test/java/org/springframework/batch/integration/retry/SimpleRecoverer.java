@@ -15,7 +15,7 @@ public final class SimpleRecoverer implements MethodInvocationRecoverer<String> 
 
 	private Log logger = LogFactory.getLog(getClass());
 
-	private final List<String> recovered = new ArrayList<>();
+	private final List<String> recovered = new ArrayList<String>();
 
 	/**
 	 * Public getter for the recovered.

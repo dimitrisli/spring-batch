@@ -47,7 +47,7 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration
 public class PollingAsyncItemProcessorMessagingGatewayTests {
 
-	private AsyncItemProcessor<String, String> processor = new AsyncItemProcessor<>();
+	private AsyncItemProcessor<String, String> processor = new AsyncItemProcessor<String, String>();
 
 	private StepExecution stepExecution = MetaDataInstanceFactory.createStepExecution(new JobParametersBuilder().addLong("factor", 2L).toJobParameters());;
 
@@ -83,7 +83,7 @@ public class PollingAsyncItemProcessorMessagingGatewayTests {
 	public void testMultiExecution() throws Exception {
 		processor.setDelegate(delegate);
 		processor.setTaskExecutor(new SimpleAsyncTaskExecutor());
-		List<Future<String>> list = new ArrayList<>();
+		List<Future<String>> list = new ArrayList<Future<String>>();
 		for (int count = 0; count < 10; count++) {
 			list.add(processor.process("foo" + count));
 		}

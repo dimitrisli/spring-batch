@@ -41,9 +41,9 @@ public class JobLaunchingMessageHandlerTests extends AbstractJUnit4SpringContext
 
 	private static class StubJobLauncher implements JobLauncher {
 
-		List<Job> jobs = new ArrayList<>();
+		List<Job> jobs = new ArrayList<Job>();
 
-		List<JobParameters> parameters = new ArrayList<>();
+		List<JobParameters> parameters = new ArrayList<JobParameters>();
 
 		AtomicLong jobId = new AtomicLong();
 

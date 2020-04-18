@@ -33,7 +33,7 @@ import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 public class AsyncItemProcessorTests {
 
-	private AsyncItemProcessor<String, String> processor = new AsyncItemProcessor<>();
+	private AsyncItemProcessor<String, String> processor = new AsyncItemProcessor<String, String>();
 
 	private ItemProcessor<String, String> delegate = new ItemProcessor<String, String>() {
 		public String process(String item) throws Exception {
@@ -75,7 +75,7 @@ public class AsyncItemProcessorTests {
 	public void testMultiExecution() throws Exception {
 		processor.setDelegate(delegate);
 		processor.setTaskExecutor(new SimpleAsyncTaskExecutor());
-		List<Future<String>> list = new ArrayList<>();
+		List<Future<String>> list = new ArrayList<Future<String>>();
 		for (int count = 0; count < 10; count++) {
 			list.add(processor.process("foo" + count));
 		}
