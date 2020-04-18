@@ -223,7 +223,7 @@ ItemProcessListener<T, S>, ItemWriteListener<S>, SkipListener<T, S>, RetryReadLi
 	 * @see org.springframework.batch.core.listener.CompositeItemReadListener#afterRead(java.lang.Object)
 	 */
 	@Override
-	public void afterRead(T item) {
+	public void afterRead(@Nullable T item) {
 		try {
 			itemReadListener.afterRead(item);
 		}
