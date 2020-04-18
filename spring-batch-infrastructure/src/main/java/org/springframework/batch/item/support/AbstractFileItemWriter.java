@@ -412,8 +412,6 @@ public abstract class AbstractFileItemWriter<T> extends AbstractItemStreamItemWr
 		/**
 		 * Return the byte offset position of the cursor in the output file as a
 		 * long integer.
-		 * @return the byte offset position of the cursor in the output file
-		 * @throws IOException If unable to get the offset position
 		 */
 		public long position() throws IOException {
 			long pos = 0;
@@ -521,7 +519,7 @@ public abstract class AbstractFileItemWriter<T> extends AbstractItemStreamItemWr
 
 		/**
 		 * @param line String to be written to the file
-		 * @throws IOException If unable to write the String to the file
+		 * @throws IOException
 		 */
 		public void write(String line) throws IOException {
 			if (!initialized) {

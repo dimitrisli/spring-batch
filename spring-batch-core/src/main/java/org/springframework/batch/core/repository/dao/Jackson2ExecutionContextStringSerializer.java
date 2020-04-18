@@ -85,8 +85,6 @@ public class Jackson2ExecutionContextStringSerializer implements ExecutionContex
      */
     private class JobParametersModule extends SimpleModule {
 
-        private static final long serialVersionUID = 1L;
-
         private JobParametersModule() {
             super("Job parameters module");
             setMixInAnnotation(JobParameters.class, JobParametersMixIn.class);
@@ -100,7 +98,6 @@ public class Jackson2ExecutionContextStringSerializer implements ExecutionContex
 
         private class JobParameterDeserializer extends StdDeserializer<JobParameter> {
 
-            private static final long serialVersionUID = 1L;
             private static final String IDENTIFYING_KEY_NAME = "identifying";
             private static final String TYPE_KEY_NAME = "type";
             private static final String VALUE_KEY_NAME = "value";

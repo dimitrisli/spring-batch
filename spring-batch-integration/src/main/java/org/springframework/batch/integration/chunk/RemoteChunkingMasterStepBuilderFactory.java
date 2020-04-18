@@ -50,8 +50,6 @@ public class RemoteChunkingMasterStepBuilderFactory {
 	 * repository and transaction manager.
 	 * 
 	 * @param name the name of the step
-	 * @param <I> type of input items
-	 * @param <O> type of output items
 	 * @return a {@link RemoteChunkingMasterStepBuilder}
 	 */
 	public <I, O> RemoteChunkingMasterStepBuilder<I, O> get(String name) {
