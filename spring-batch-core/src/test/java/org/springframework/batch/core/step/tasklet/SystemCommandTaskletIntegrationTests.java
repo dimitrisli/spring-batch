@@ -73,7 +73,7 @@ public class SystemCommandTaskletIntegrationTests {
 		tasklet = new SystemCommandTasklet();
 		tasklet.setEnvironmentParams(null); // inherit from parent process
 		tasklet.setWorkingDirectory(null); // inherit from parent process
-		tasklet.setSystemProcessExitCodeMapper(new SimpleSystemProcessExitCodeMapper());
+		tasklet.setSystemProcessExitCodeMapper(new TestExitCodeMapper());
 		tasklet.setTimeout(5000); // long enough timeout
 		tasklet.setTerminationCheckInterval(500);
 		tasklet.setCommand("invalid command, change value for successful execution");
@@ -136,7 +136,7 @@ public class SystemCommandTaskletIntegrationTests {
 	 */
 	@Test
 	public void testExecuteTimeout() throws Exception {
-		String command = isRunningOnWindows() ?
+		String command = System.getProperty("os.name").toLowerCase().contains("win") ?
 				"ping 127.0.0.1" :
 					"sleep 3";
 		tasklet.setCommand(command);
@@ -158,7 +158,7 @@ public class SystemCommandTaskletIntegrationTests {
 	 */
 	@Test
 	public void testInterruption() throws Exception {
-		String command = isRunningOnWindows() ?
+		String command = System.getProperty("os.name").toLowerCase().contains("win") ?
 				"ping 127.0.0.1" :
 					"sleep 5";
 		tasklet.setCommand(command);
@@ -269,7 +269,7 @@ public class SystemCommandTaskletIntegrationTests {
 
 		when(jobExplorer.getJobExecution(1L)).thenReturn(stepExecution.getJobExecution(), stepExecution.getJobExecution(), stoppedJobExecution);
 
-		String command = isRunningOnWindows() ?
+		String command = System.getProperty("os.name").toLowerCase().contains("win") ?
 				"ping 127.0.0.1 -n 5" :
 					"sleep 15";
 		tasklet.setCommand(command);
@@ -281,7 +281,7 @@ public class SystemCommandTaskletIntegrationTests {
 		ChunkContext chunkContext = new ChunkContext(stepContext);
 		tasklet.execute(contribution, chunkContext);
 
-		assertEquals(ExitStatus.STOPPED.getExitCode(), contribution.getExitStatus().getExitCode());
+		assertEquals(contribution.getExitStatus().getExitCode(),ExitStatus.STOPPED.getExitCode());
 	}
 
 	private String getJavaCommand() {
@@ -294,15 +294,29 @@ public class SystemCommandTaskletIntegrationTests {
 		command.append(fileSeparator);
 		command.append("java");
 
-		if(isRunningOnWindows()) {
+		if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0) {
 			command.append(".exe");
 		}
 
 		return command.toString();
 	}
 
-	private boolean isRunningOnWindows() {
-		return System.getProperty("os.name").toLowerCase().contains("win");
+	/**
+	 * Exit code mapper containing mapping logic expected by the tests. 0 means
+	 * finished successfully, other value means failure.
+	 */
+	private static class TestExitCodeMapper implements SystemProcessExitCodeMapper {
+
+		@Override
+		public ExitStatus getExitStatus(int exitCode) {
+			if (exitCode == 0) {
+				return ExitStatus.COMPLETED;
+			}
+			else {
+				return ExitStatus.FAILED;
+			}
+		}
+
 	}
 
 }
