@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 the original author or authors.
+ * Copyright 2016-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import javax.sql.DataSource;
 
 import org.springframework.batch.item.database.AbstractCursorItemReader;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
+import org.springframework.batch.item.database.support.ListPreparedStatementSetter;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.ArgumentPreparedStatementSetter;
 import org.springframework.jdbc.core.ArgumentTypePreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -34,7 +36,6 @@ import org.springframework.util.StringUtils;
  * @author Michael Minella
  * @author Glenn Renfro
  * @author Drummond Dawson
- * @author Mahmoud Ben Hassine
  * @since 4.0
  */
 public class JdbcCursorItemReaderBuilder<T> {
@@ -273,10 +274,14 @@ public class JdbcCursorItemReaderBuilder<T> {
 	 *
 	 * @param args values to set on the query
 	 * @return this instance for method chaining
+	 * @throws Exception from {@link InitializingBean#afterPropertiesSet()}
 	 */
-	public JdbcCursorItemReaderBuilder<T> queryArguments(List<?> args) {
-		Assert.notNull(args, "The list of arguments must not be null");
-		this.preparedStatementSetter = new ArgumentPreparedStatementSetter(args.toArray());
+	public JdbcCursorItemReaderBuilder<T> queryArguments(List<?> args) throws Exception {
+		ListPreparedStatementSetter listPreparedStatementSetter = new ListPreparedStatementSetter(args);
+
+		listPreparedStatementSetter.afterPropertiesSet();
+
+		this.preparedStatementSetter = listPreparedStatementSetter;
 
 		return this;
 	}
