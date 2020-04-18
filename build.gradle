@@ -158,6 +158,7 @@ configure(subprojects - project(":spring-build-src")) { subproject ->
 		systemProperty "ENVIRONMENT", environmentProperty
 
 		jacoco {
+			append = false
 			destinationFile = file("$buildDir/jacoco.exec")
 		}
 
@@ -167,6 +168,7 @@ configure(subprojects - project(":spring-build-src")) { subproject ->
 
 	test {
 		jacoco {
+			append = false
 			destinationFile = file("$buildDir/jacoco.exec")
 		}
 
