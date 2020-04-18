@@ -69,7 +69,7 @@ public class SynchronousTests implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
 
-	private List<String> list = new ArrayList<>();
+	private List<String> list = new ArrayList<String>();
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -152,7 +152,7 @@ public class SynchronousTests implements ApplicationContextAware {
 		});
 
 		String text = "";
-		List<String> msgs = new ArrayList<>();
+		List<String> msgs = new ArrayList<String>();
 		while (text != null) {
 			text = (String) jmsTemplate.receiveAndConvert("queue");
 			msgs.add(text);
@@ -219,7 +219,7 @@ public class SynchronousTests implements ApplicationContextAware {
 		});
 
 		String text = "";
-		List<String> msgs = new ArrayList<>();
+		List<String> msgs = new ArrayList<String>();
 		while (text != null) {
 			text = (String) txJmsTemplate.receiveAndConvert("queue");
 			msgs.add(text);
