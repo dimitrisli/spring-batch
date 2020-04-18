@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 the original author or authors.
+ * Copyright 2017-2018 the original author or authors.
  *  
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package org.springframework.batch.item.data.builder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +51,7 @@ public class MongoItemReaderBuilder<T> {
 
 	private String collection;
 
-	private List<Object> parameterValues = new ArrayList<>();
+	private List<Object> parameterValues;
 
 	protected int pageSize = 10;
 
