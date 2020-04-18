@@ -38,7 +38,7 @@ public class CompositeItemProcessListenerTests {
 	@Before
 	public void setUp() throws Exception {
 		listener = mock(ItemProcessListener.class);
-		compositeListener = new CompositeItemProcessListener<>();
+		compositeListener = new CompositeItemProcessListener<Object, Object>();
 		compositeListener.register(listener);
 	}
 

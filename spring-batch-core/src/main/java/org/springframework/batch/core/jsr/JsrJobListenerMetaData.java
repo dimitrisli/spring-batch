@@ -44,7 +44,7 @@ public enum JsrJobListenerMetaData implements ListenerMetaData {
 	}
 
 	static{
-		propertyMap = new HashMap<>();
+		propertyMap = new HashMap<String, JsrJobListenerMetaData>();
 		for(JsrJobListenerMetaData metaData : values()){
 			propertyMap.put(metaData.getPropertyName(), metaData);
 		}

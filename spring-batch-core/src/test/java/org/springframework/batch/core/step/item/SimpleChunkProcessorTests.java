@@ -33,7 +33,7 @@ import org.springframework.batch.item.ItemWriter;
 
 public class SimpleChunkProcessorTests {
 
-	private SimpleChunkProcessor<String, String> processor = new SimpleChunkProcessor<>(
+	private SimpleChunkProcessor<String, String> processor = new SimpleChunkProcessor<String, String>(
 			new ItemProcessor<String, String>() {
 				@Override
 				public String process(String item) throws Exception {
@@ -55,7 +55,7 @@ public class SimpleChunkProcessorTests {
 	private StepContribution contribution = new StepContribution(new StepExecution("foo", new JobExecution(
 			new JobInstance(123L, "job"), new JobParameters())));
 
-	private List<String> list = new ArrayList<>();
+	private List<String> list = new ArrayList<String>();
 
 	@Before
 	public void setUp() {
@@ -64,7 +64,7 @@ public class SimpleChunkProcessorTests {
 
 	@Test
 	public void testProcess() throws Exception {
-		Chunk<String> chunk = new Chunk<>();
+		Chunk<String> chunk = new Chunk<String>();
 		chunk.add("foo");
 		chunk.add("err");
 		chunk.add("bar");

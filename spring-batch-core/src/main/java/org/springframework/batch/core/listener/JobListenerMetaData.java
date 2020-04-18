@@ -52,7 +52,7 @@ public enum JobListenerMetaData implements ListenerMetaData {
 	}
 
 	static{
-		propertyMap = new HashMap<>();
+		propertyMap = new HashMap<String, JobListenerMetaData>();
 		for(JobListenerMetaData metaData : values()){
 			propertyMap.put(metaData.getPropertyName(), metaData);
 		}

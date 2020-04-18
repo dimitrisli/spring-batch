@@ -145,9 +145,9 @@ public class FaultTolerantChunkProcessor<I, O> extends SimpleChunkProcessor<I, O
 		@SuppressWarnings("unchecked")
 		UserData<O> data = (UserData<O>) inputs.getUserData();
 		if (data == null) {
-			data = new UserData<>();
+			data = new UserData<O>();
 			inputs.setUserData(data);
-			data.setOutputs(new Chunk<>());
+			data.setOutputs(new Chunk<O>());
 		}
 		else {
 			// BATCH-2663: re-initialize filter count when scanning the chunk
@@ -191,7 +191,7 @@ public class FaultTolerantChunkProcessor<I, O> extends SimpleChunkProcessor<I, O
 		UserData<O> data = (UserData<O>) inputs.getUserData();
 		Chunk<O> previous = data.getOutputs();
 
-		Chunk<O> next = new Chunk<>(outputs.getItems(), previous.getSkips());
+		Chunk<O> next = new Chunk<O>(outputs.getItems(), previous.getSkips());
 		next.setBusy(previous.isBusy());
 
 		// Remember for next time if there are skips accumulating
@@ -204,11 +204,11 @@ public class FaultTolerantChunkProcessor<I, O> extends SimpleChunkProcessor<I, O
 	@Override
 	protected Chunk<O> transform(final StepContribution contribution, Chunk<I> inputs) throws Exception {
 
-		Chunk<O> outputs = new Chunk<>();
+		Chunk<O> outputs = new Chunk<O>();
 		@SuppressWarnings("unchecked")
 		final UserData<O> data = (UserData<O>) inputs.getUserData();
 		final Chunk<O> cache = data.getOutputs();
-		final Iterator<O> cacheIterator = cache.isEmpty() ? null : new ArrayList<>(cache.getItems()).iterator();
+		final Iterator<O> cacheIterator = cache.isEmpty() ? null : new ArrayList<O>(cache.getItems()).iterator();
 		final AtomicInteger count = new AtomicInteger(0);
 
 		// final int scanLimit = processorTransactional && data.scanning() ? 1 :
@@ -323,7 +323,7 @@ public class FaultTolerantChunkProcessor<I, O> extends SimpleChunkProcessor<I, O
 			throws Exception {
 		@SuppressWarnings("unchecked")
 		final UserData<O> data = (UserData<O>) inputs.getUserData();
-		final AtomicReference<RetryContext> contextHolder = new AtomicReference<>();
+		final AtomicReference<RetryContext> contextHolder = new AtomicReference<RetryContext>();
 
 		RetryCallback<Object, Exception> retryCallback = new RetryCallback<Object, Exception>() {
 			@Override
@@ -521,7 +521,7 @@ public class FaultTolerantChunkProcessor<I, O> extends SimpleChunkProcessor<I, O
 		if (keyGenerator == null) {
 			return inputs.getItems();
 		}
-		List<Object> keys = new ArrayList<>();
+		List<Object> keys = new ArrayList<Object>();
 		for (I item : inputs.getItems()) {
 			keys.add(keyGenerator.getKey(item));
 		}

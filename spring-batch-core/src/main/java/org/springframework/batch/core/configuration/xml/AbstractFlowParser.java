@@ -113,7 +113,7 @@ public abstract class AbstractFlowParser extends AbstractSingleBeanDefinitionPar
 	@Override
 	protected void doParse(Element element, ParserContext parserContext, BeanDefinitionBuilder builder) {
 
-		List<BeanDefinition> stateTransitions = new ArrayList<>();
+		List<BeanDefinition> stateTransitions = new ArrayList<BeanDefinition>();
 
 		SplitParser splitParser = new SplitParser(jobFactoryRef);
 		CompositeComponentDefinition compositeDef = new CompositeComponentDefinition(element.getTagName(),
@@ -121,7 +121,7 @@ public abstract class AbstractFlowParser extends AbstractSingleBeanDefinitionPar
 		parserContext.pushContainingComponent(compositeDef);
 
 		boolean stepExists = false;
-		Map<String, Set<String>> reachableElementMap = new LinkedHashMap<>();
+		Map<String, Set<String>> reachableElementMap = new LinkedHashMap<String, Set<String>>();
 		String startElement = null;
 		NodeList children = element.getChildNodes();
 		for (int i = 0; i < children.getLength(); i++) {
@@ -163,7 +163,7 @@ public abstract class AbstractFlowParser extends AbstractSingleBeanDefinitionPar
 		}
 
 		// Ensure that all elements are reachable
-		Set<String> allReachableElements = new HashSet<>();
+		Set<String> allReachableElements = new HashSet<String>();
 		findAllReachableElements(startElement, reachableElementMap, allReachableElements);
 		for (String elementId : reachableElementMap.keySet()) {
 			if (!allReachableElements.contains(elementId)) {
@@ -171,7 +171,7 @@ public abstract class AbstractFlowParser extends AbstractSingleBeanDefinitionPar
 			}
 		}
 
-		ManagedList<BeanDefinition> managedList = new ManagedList<>();
+		ManagedList<BeanDefinition> managedList = new ManagedList<BeanDefinition>();
 		managedList.addAll(stateTransitions);
 		builder.addPropertyValue("stateTransitions", managedList);
 
@@ -184,7 +184,7 @@ public abstract class AbstractFlowParser extends AbstractSingleBeanDefinitionPar
 	 * @return a collection of reachable element names
 	 */
 	private Set<String> findReachableElements(Element element) {
-		Set<String> reachableElements = new HashSet<>();
+		Set<String> reachableElements = new HashSet<String>();
 
 		String nextAttribute = element.getAttribute(NEXT_ATTR);
 		if (StringUtils.hasText(nextAttribute)) {
@@ -253,7 +253,7 @@ public abstract class AbstractFlowParser extends AbstractSingleBeanDefinitionPar
 	public static Collection<BeanDefinition> getNextElements(ParserContext parserContext, String stepId,
 			BeanDefinition stateDef, Element element) {
 
-		Collection<BeanDefinition> list = new ArrayList<>();
+		Collection<BeanDefinition> list = new ArrayList<BeanDefinition>();
 
 		String shortNextAttribute = element.getAttribute(NEXT_ATTR);
 		boolean hasNextAttribute = StringUtils.hasText(shortNextAttribute);
@@ -262,7 +262,7 @@ public abstract class AbstractFlowParser extends AbstractSingleBeanDefinitionPar
 		}
 
 		boolean transitionElementExists = false;
-		List<String> patterns = new ArrayList<>();
+		List<String> patterns = new ArrayList<String>();
 		for (String transitionName : new String[] { NEXT_ELE, STOP_ELE, END_ELE, FAIL_ELE }) {
 			List<Element> transitionElements = DomUtils.getChildElementsByTagName(element, transitionName);
 			for (Element transitionElement : transitionElements) {
@@ -376,7 +376,7 @@ public abstract class AbstractFlowParser extends AbstractSingleBeanDefinitionPar
 
 		}
 
-		Collection<BeanDefinition> list = new ArrayList<>();
+		Collection<BeanDefinition> list = new ArrayList<BeanDefinition>();
 		list.add(getStateTransitionReference(parserContext, stateDef, on, next));
 		if (endState != null) {
 			//

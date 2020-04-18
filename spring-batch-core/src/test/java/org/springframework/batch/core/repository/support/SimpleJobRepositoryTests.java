@@ -108,7 +108,7 @@ public class SimpleJobRepositoryTests {
 
 		stepConfiguration2 = new StepSupport("TestStep2");
 
-		List<Step> stepConfigurations = new ArrayList<>();
+		List<Step> stepConfigurations = new ArrayList<Step>();
 		stepConfigurations.add(stepConfiguration1);
 		stepConfigurations.add(stepConfiguration2);
 
@@ -119,7 +119,7 @@ public class SimpleJobRepositoryTests {
 		databaseStep1 = "dbStep1";
 		databaseStep2 = "dbStep2";
 
-		steps = new ArrayList<>();
+		steps = new ArrayList<String>();
 		steps.add(databaseStep1);
 		steps.add(databaseStep2);
 
@@ -182,7 +182,7 @@ public class SimpleJobRepositoryTests {
 
 	@Test
 	public void testSaveStepExecutions() {
-		List<StepExecution> stepExecutions = new ArrayList<>();
+		List<StepExecution> stepExecutions = new ArrayList<StepExecution>();
 		for (int i = 0; i < 3; i++) {
 			StepExecution stepExecution = new StepExecution("stepName" + i, jobExecution);
 			stepExecutions.add(stepExecution);

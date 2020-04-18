@@ -120,7 +120,7 @@ public class JsrStepContextFactoryBeanTests {
 
 	@Test
 	public void getObjectMultiThread() throws Exception {
-		List<Future<StepContext>> stepContexts = new ArrayList<>();
+		List<Future<StepContext>> stepContexts = new ArrayList<Future<StepContext>>();
 
 		AsyncTaskExecutor executor = new SimpleAsyncTaskExecutor();
 
@@ -144,7 +144,7 @@ public class JsrStepContextFactoryBeanTests {
 			}));
 		}
 
-		Set<StepContext> contexts = new HashSet<>();
+		Set<StepContext> contexts = new HashSet<StepContext>();
 		for (Future<StepContext> future : stepContexts) {
 			contexts.add(future.get());
 		}
@@ -161,7 +161,7 @@ public class JsrStepContextFactoryBeanTests {
 			when(propertyContext.getStepProperties("step" + i)).thenReturn(props);
 		}
 
-		List<Future<StepContext>> stepContexts = new ArrayList<>();
+		List<Future<StepContext>> stepContexts = new ArrayList<Future<StepContext>>();
 
 		AsyncTaskExecutor executor = new SimpleAsyncTaskExecutor();
 
@@ -185,7 +185,7 @@ public class JsrStepContextFactoryBeanTests {
 			}));
 		}
 
-		Set<StepContext> contexts = new HashSet<>();
+		Set<StepContext> contexts = new HashSet<StepContext>();
 		for (Future<StepContext> future : stepContexts) {
 			contexts.add(future.get());
 		}

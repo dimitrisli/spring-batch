@@ -30,7 +30,7 @@ import org.springframework.core.Ordered;
  */
 public class CompositeStepExecutionListener implements StepExecutionListener {
 
-	private OrderedComposite<StepExecutionListener> list = new OrderedComposite<>();
+	private OrderedComposite<StepExecutionListener> list = new OrderedComposite<StepExecutionListener>();
 
 	/**
 	 * Public setter for the listeners.

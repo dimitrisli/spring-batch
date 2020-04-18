@@ -42,7 +42,7 @@ import org.springframework.batch.core.step.StepLocator;
  */
 public class SimpleJob extends AbstractJob {
 
-	private List<Step> steps = new ArrayList<>();
+	private List<Step> steps = new ArrayList<Step>();
 
 	/**
 	 * Default constructor for job with null name
@@ -76,7 +76,7 @@ public class SimpleJob extends AbstractJob {
 	 */
 	@Override
 	public Collection<String> getStepNames() {
-		List<String> names = new ArrayList<>();
+		List<String> names = new ArrayList<String>();
 		for (Step step : steps) {
 			names.add(step.getName());
 

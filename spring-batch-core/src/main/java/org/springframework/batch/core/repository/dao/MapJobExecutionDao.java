@@ -39,7 +39,7 @@ import org.springframework.util.SerializationUtils;
 public class MapJobExecutionDao implements JobExecutionDao {
 
 	// JDK6 Make this into a ConcurrentSkipListMap: adds and removes tend to be very near the front or back
-	private final ConcurrentMap<Long, JobExecution> executionsById = new ConcurrentHashMap<>();
+	private final ConcurrentMap<Long, JobExecution> executionsById = new ConcurrentHashMap<Long, JobExecution>();
 
 	private final AtomicLong currentId = new AtomicLong(0L);
 
@@ -63,7 +63,7 @@ public class MapJobExecutionDao implements JobExecutionDao {
 
 	@Override
 	public List<JobExecution> findJobExecutions(JobInstance jobInstance) {
-		List<JobExecution> executions = new ArrayList<>();
+		List<JobExecution> executions = new ArrayList<JobExecution>();
 		for (JobExecution exec : executionsById.values()) {
 			if (exec.getJobInstance().equals(jobInstance)) {
 				executions.add(copy(exec));
@@ -131,7 +131,7 @@ public class MapJobExecutionDao implements JobExecutionDao {
 	 */
 	@Override
 	public Set<JobExecution> findRunningJobExecutions(String jobName) {
-		Set<JobExecution> result = new HashSet<>();
+		Set<JobExecution> result = new HashSet<JobExecution>();
 		for (JobExecution exec : executionsById.values()) {
 			if (!exec.getJobInstance().getJobName().equals(jobName) || !exec.isRunning()) {
 				continue;

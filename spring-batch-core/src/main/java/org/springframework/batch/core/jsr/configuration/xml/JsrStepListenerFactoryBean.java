@@ -42,7 +42,7 @@ public class JsrStepListenerFactoryBean extends StepListenerFactoryBean {
 
 	@Override
 	protected ListenerMetaData[] getMetaDataValues() {
-		List<ListenerMetaData> values = new ArrayList<>();
+		List<ListenerMetaData> values = new ArrayList<ListenerMetaData>();
 		Collections.addAll(values, StepListenerMetaData.values());
 		Collections.addAll(values, JsrStepListenerMetaData.values());
 

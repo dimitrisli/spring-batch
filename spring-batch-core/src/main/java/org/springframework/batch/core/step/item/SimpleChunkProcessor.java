@@ -40,7 +40,7 @@ public class SimpleChunkProcessor<I, O> implements ChunkProcessor<I>, Initializi
 
 	private ItemWriter<? super O> itemWriter;
 
-	private final MulticasterBatchListener<I, O> listener = new MulticasterBatchListener<>();
+	private final MulticasterBatchListener<I, O> listener = new MulticasterBatchListener<I, O>();
 
 	/**
 	 * Default constructor for ease of configuration.
@@ -298,7 +298,7 @@ public class SimpleChunkProcessor<I, O> implements ChunkProcessor<I>, Initializi
 	}
 
 	protected Chunk<O> transform(StepContribution contribution, Chunk<I> inputs) throws Exception {
-		Chunk<O> outputs = new Chunk<>();
+		Chunk<O> outputs = new Chunk<O>();
 		for (Chunk<I>.ChunkIterator iterator = inputs.iterator(); iterator.hasNext();) {
 			final I item = iterator.next();
 			O output;

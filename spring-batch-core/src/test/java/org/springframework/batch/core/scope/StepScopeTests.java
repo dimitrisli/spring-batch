@@ -135,7 +135,7 @@ public class StepScopeTests {
 
 	@Test
 	public void testRegisterDestructionCallback() {
-		final List<String> list = new ArrayList<>();
+		final List<String> list = new ArrayList<String>();
 		context.setAttribute("foo", "bar");
 		scope.registerDestructionCallback("foo", new Runnable() {
 			@Override
@@ -152,7 +152,7 @@ public class StepScopeTests {
 
 	@Test
 	public void testRegisterAnotherDestructionCallback() {
-		final List<String> list = new ArrayList<>();
+		final List<String> list = new ArrayList<String>();
 		context.setAttribute("foo", "bar");
 		scope.registerDestructionCallback("foo", new Runnable() {
 			@Override

@@ -37,9 +37,9 @@ public class BatchPropertyContext {
 	private static final String PARTITION_INDICATOR = ":partition";
 
 	private Properties jobProperties = new Properties();
-	private Map<String, Properties> stepProperties = new HashMap<>();
-	private Map<String, Properties> artifactProperties = new HashMap<>();
-	private Map<String, Map<String, Properties>> stepArtifactProperties = new HashMap<>();
+	private Map<String, Properties> stepProperties = new HashMap<String, Properties>();
+	private Map<String, Properties> artifactProperties = new HashMap<String, Properties>();
+	private Map<String, Map<String, Properties>> stepArtifactProperties = new HashMap<String, Map<String, Properties>>();
 
 	/**
 	 * <p>
@@ -134,7 +134,7 @@ public class BatchPropertyContext {
 		Assert.hasText(stepName, "Step name must be provided");
 		Assert.notNull(properties, "Step properties must not be null");
 
-		Map<String, Properties> stepProperties = new HashMap<>();
+		Map<String, Properties> stepProperties = new HashMap<String, Properties>();
 		stepProperties.put(stepName, properties);
 
 		setStepProperties(stepProperties);

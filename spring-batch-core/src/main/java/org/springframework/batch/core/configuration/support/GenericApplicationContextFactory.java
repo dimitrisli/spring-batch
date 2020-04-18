@@ -69,7 +69,7 @@ public class GenericApplicationContextFactory extends AbstractApplicationContext
 		} else if (allObjectsOfType(resources, String.class)) {
 			 context = new ResourceAnnotationApplicationContext(parent, resources);
 		} else {
-			List<Class<?>> types = new ArrayList<>();
+			List<Class<?>> types = new ArrayList<Class<?>>();
 			for (Object resource : resources) {
 				types.add(resource.getClass());
 			}
@@ -148,7 +148,7 @@ public class GenericApplicationContextFactory extends AbstractApplicationContext
 				protected String generateId(Object... configs) {
 					Resource[] resources = Arrays.copyOfRange(configs, 0, configs.length, Resource[].class);
   					try {
- 						List<String> uris = new ArrayList<>();
+ 						List<String> uris = new ArrayList<String>();
  						for (Resource resource : resources) {
  							uris.add(resource.getURI().toString());
  						}
@@ -197,7 +197,7 @@ public class GenericApplicationContextFactory extends AbstractApplicationContext
 				protected String generateId(Object... configs) {
 					if (allObjectsOfType(configs, Class.class)) {
 						Class<?>[] types = Arrays.copyOfRange(configs, 0, configs.length, Class[].class);
-						List<String> names = new ArrayList<>();
+						List<String> names = new ArrayList<String>();
 						for (Class<?> type : types) {
 							names.add(type.getName());
 						}

@@ -27,7 +27,7 @@ import org.springframework.core.Ordered;
  */
 public class CompositeSkipListener<T,S> implements SkipListener<T,S> {
 
-	private OrderedComposite<SkipListener<? super T,? super S>> listeners = new OrderedComposite<>();
+	private OrderedComposite<SkipListener<? super T,? super S>> listeners = new OrderedComposite<SkipListener<? super T,? super S>>();
 
 	/**
 	 * Public setter for the listeners.

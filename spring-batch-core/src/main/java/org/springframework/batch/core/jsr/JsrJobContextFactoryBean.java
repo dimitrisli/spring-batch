@@ -47,7 +47,7 @@ public class JsrJobContextFactoryBean implements FactoryBean<JobContext> {
 	@Autowired
 	private BatchPropertyContext propertyContext;
 
-	private static final ThreadLocal<JobContext> contextHolder = new ThreadLocal<>();
+	private static final ThreadLocal<JobContext> contextHolder = new ThreadLocal<JobContext>();
 
 	/* (non-Javadoc)
 	 * @see org.springframework.beans.factory.FactoryBean#getObject()

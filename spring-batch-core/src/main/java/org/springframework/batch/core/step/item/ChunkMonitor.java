@@ -54,7 +54,7 @@ public class ChunkMonitor extends ItemStreamSupport {
 
 	private CompositeItemStream stream = new CompositeItemStream();
 
-	private ThreadLocal<ChunkMonitorData> holder = new ThreadLocal<>();
+	private ThreadLocal<ChunkMonitorData> holder = new ThreadLocal<ChunkMonitorData>();
 
 	private ItemReader<?> reader;
 

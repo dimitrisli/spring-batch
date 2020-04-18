@@ -30,7 +30,7 @@ public class TestReader extends AbstractTestComponent implements ItemStreamReade
 	List<String> items = null;
 
 	{
-		List<String> l = new ArrayList<>();
+		List<String> l = new ArrayList<String>();
 		l.add("Item *** 1 ***");
 		l.add("Item *** 2 ***");
 		this.items = Collections.synchronizedList(l);

@@ -118,7 +118,7 @@ public class FlowJobParserTests {
 	}
 
 	private List<String> getStepNames(JobExecution jobExecution) {
-		List<String> list = new ArrayList<>();
+		List<String> list = new ArrayList<String>();
 		for (StepExecution stepExecution : jobExecution.getStepExecutions()) {
 			list.add(stepExecution.getStepName());
 		}

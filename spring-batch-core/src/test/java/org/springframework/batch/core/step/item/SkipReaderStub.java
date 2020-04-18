@@ -31,7 +31,7 @@ public class SkipReaderStub<T> extends AbstractExceptionThrowingItemHandlerStub<
 
 	private T[] items;
 
-	private List<T> read = new ArrayList<>();
+	private List<T> read = new ArrayList<T>();
 
 	private int counter = -1;
 

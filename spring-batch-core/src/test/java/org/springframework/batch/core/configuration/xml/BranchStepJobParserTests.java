@@ -54,7 +54,7 @@ public class BranchStepJobParserTests {
 		job.execute(jobExecution);
 		assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
 		assertEquals(2, jobExecution.getStepExecutions().size());
-		List<String> names = new ArrayList<>();
+		List<String> names = new ArrayList<String>();
 		for (StepExecution stepExecution : jobExecution.getStepExecutions()) {
 			names.add(stepExecution.getStepName());
 		}

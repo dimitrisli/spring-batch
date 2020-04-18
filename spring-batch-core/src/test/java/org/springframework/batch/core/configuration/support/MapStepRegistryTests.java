@@ -49,7 +49,7 @@ public class MapStepRegistryTests {
         final StepRegistry stepRegistry = createRegistry();
 
         try {
-            stepRegistry.register(null, new HashSet<>());
+            stepRegistry.register(null, new HashSet<Step>());
             Assert.fail(EXCEPTION_NOT_THROWN_MSG);
         } catch (IllegalArgumentException e) {
         }

@@ -81,7 +81,7 @@ public class DateFormatTests {
 	@Parameters
 	public static List<Object[]> data() {
 
-		List<Object[]> params = new ArrayList<>();
+		List<Object[]> params = new ArrayList<Object[]>();
 		String format = "yyyy-MM-dd HH:mm:ss.S z";
 
 		/*

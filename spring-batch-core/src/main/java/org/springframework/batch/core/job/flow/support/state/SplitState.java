@@ -84,16 +84,16 @@ public class SplitState extends AbstractState implements FlowHolder {
 
 		// TODO: collect the last StepExecution from the flows as well, so they
 		// can be abandoned if necessary
-		Collection<Future<FlowExecution>> tasks = new ArrayList<>();
+		Collection<Future<FlowExecution>> tasks = new ArrayList<Future<FlowExecution>>();
 
 		for (final Flow flow : flows) {
 
-			final FutureTask<FlowExecution> task = new FutureTask<>(new Callable<FlowExecution>() {
-                @Override
-                public FlowExecution call() throws Exception {
-                    return flow.start(executor);
-                }
-            });
+			final FutureTask<FlowExecution> task = new FutureTask<FlowExecution>(new Callable<FlowExecution>() {
+				@Override
+				public FlowExecution call() throws Exception {
+					return flow.start(executor);
+				}
+			});
 
 			tasks.add(task);
 
@@ -106,7 +106,7 @@ public class SplitState extends AbstractState implements FlowHolder {
 
 		}
 
-		Collection<FlowExecution> results = new ArrayList<>();
+		Collection<FlowExecution> results = new ArrayList<FlowExecution>();
 
 		// Could use a CompletionService here?
 		for (Future<FlowExecution> task : tasks) {

@@ -33,7 +33,7 @@ public class CompositeStepExecutionListenerTests extends TestCase {
 
 	private CompositeStepExecutionListener listener = new CompositeStepExecutionListener();
 
-	private List<String> list = new ArrayList<>();
+	private List<String> list = new ArrayList<String>();
 
 	/**
 	 * Test method for

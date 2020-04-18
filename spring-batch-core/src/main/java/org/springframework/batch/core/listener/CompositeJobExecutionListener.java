@@ -28,7 +28,7 @@ import org.springframework.core.Ordered;
  */
 public class CompositeJobExecutionListener implements JobExecutionListener {
 
-	private OrderedComposite<JobExecutionListener> listeners = new OrderedComposite<>();
+	private OrderedComposite<JobExecutionListener> listeners = new OrderedComposite<JobExecutionListener>();
 
 	/**
 	 * Public setter for the listeners.

@@ -339,7 +339,7 @@ public class FaultTolerantExceptionClassesTests implements ApplicationContextAwa
 		job.setName("job");
 		job.setJobRepository(jobRepository);
 
-		List<Step> stepsToExecute = new ArrayList<>();
+		List<Step> stepsToExecute = new ArrayList<Step>();
 		stepsToExecute.add((Step) applicationContext.getBean(stepName));
 		job.setSteps(stepsToExecute);
 

@@ -40,7 +40,7 @@ public class CompositeItemWriteListenerTests {
 	@Before
 	public void setUp() throws Exception {
 		listener = mock(ItemWriteListener.class);
-		compositeListener = new CompositeItemWriteListener<>();
+		compositeListener = new CompositeItemWriteListener<Object>();
 		compositeListener.register(listener);
 	}
 

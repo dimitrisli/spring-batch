@@ -121,7 +121,7 @@ public class JsrFaultTolerantStepBuilder<I, O> extends FaultTolerantStepBuilder<
 
 	@Override
 	protected ChunkProvider<I> createChunkProvider() {
-		return new JsrChunkProvider<>();
+		return new JsrChunkProvider<I>();
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class JsrFaultTolerantStepBuilder<I, O> extends FaultTolerantStepBuilder<
 	protected ChunkProcessor<I> createChunkProcessor() {
 		SkipPolicy skipPolicy = getFatalExceptionAwareProxy(createSkipPolicy());
 		JsrFaultTolerantChunkProcessor<I, O> chunkProcessor = 
-				new JsrFaultTolerantChunkProcessor<>(getReader(), getProcessor(),
+				new JsrFaultTolerantChunkProcessor<I, O>(getReader(), getProcessor(),
 				getWriter(), createChunkOperations(), createRetryOperations());
 		chunkProcessor.setSkipPolicy(skipPolicy);
 		chunkProcessor.setRollbackClassifier(getRollbackClassifier());
@@ -147,7 +147,7 @@ public class JsrFaultTolerantStepBuilder<I, O> extends FaultTolerantStepBuilder<
 	}
 
 	private List<StepListener> getChunkListeners() {
-		List<StepListener> listeners = new ArrayList<>();
+		List<StepListener> listeners = new ArrayList<StepListener>();
 		listeners.addAll(getItemListeners());
 		listeners.addAll(getSkipListeners());
 		listeners.addAll(getJsrRetryListeners());

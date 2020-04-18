@@ -56,11 +56,11 @@ public class SimpleFlow implements Flow, InitializingBean {
 
 	private State startState;
 
-	private Map<String, Set<StateTransition>> transitionMap = new HashMap<>();
+	private Map<String, Set<StateTransition>> transitionMap = new HashMap<String, Set<StateTransition>>();
 
-	private Map<String, State> stateMap = new HashMap<>();
+	private Map<String, State> stateMap = new HashMap<String, State>();
 
-	private List<StateTransition> stateTransitions = new ArrayList<>();
+	private List<StateTransition> stateTransitions = new ArrayList<StateTransition>();
 
 	private final String name;
 
@@ -116,7 +116,7 @@ public class SimpleFlow implements Flow, InitializingBean {
 	 */
 	@Override
 	public Collection<State> getStates() {
-		return new HashSet<>(stateMap.values());
+		return new HashSet<State>(stateMap.values());
 	}
 
 	/**
@@ -306,9 +306,9 @@ public class SimpleFlow implements Flow, InitializingBean {
 			if (set == null) {
 				// If no comparator is provided, we will maintain the order of insertion
 				if(stateTransitionComparator == null) {
-					set = new LinkedHashSet<>();
+					set = new LinkedHashSet<StateTransition>();
 				} else {
-					set = new TreeSet<>(stateTransitionComparator);
+					set = new TreeSet<StateTransition>(stateTransitionComparator);
 				}
 
 				transitionMap.put(name, set);

@@ -33,7 +33,7 @@ public class PartitionCollectorAdapterTests {
 
 	@Test
 	public void testAfterChunkSuccessful() throws Exception {
-		Queue<Serializable> dataQueue = new ConcurrentLinkedQueue<>();
+		Queue<Serializable> dataQueue = new ConcurrentLinkedQueue<Serializable>();
 
 		adapter = new PartitionCollectorAdapter(dataQueue, new PartitionCollector() {
 

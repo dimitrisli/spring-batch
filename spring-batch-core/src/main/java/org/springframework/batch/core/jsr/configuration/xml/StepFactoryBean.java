@@ -214,7 +214,7 @@ public class StepFactoryBean<I, O> extends StepParserStepFactoryBean<I, O> {
 		if(itemReader instanceof org.springframework.batch.item.ItemReader) {
 			super.setItemReader((org.springframework.batch.item.ItemReader<I>) itemReader);
 		} else if(itemReader instanceof ItemReader){
-			super.setItemReader(new ItemReaderAdapter<>((ItemReader) itemReader));
+			super.setItemReader(new ItemReaderAdapter<I>((ItemReader) itemReader));
 		} else {
 			throw new IllegalArgumentException("The definition of an item reader must implement either " +
 					"org.springframework.batch.item.ItemReader or javax.batch.api.chunk.ItemReader");
@@ -233,7 +233,7 @@ public class StepFactoryBean<I, O> extends StepParserStepFactoryBean<I, O> {
 		if(itemProcessor instanceof org.springframework.batch.item.ItemProcessor) {
 			super.setItemProcessor((org.springframework.batch.item.ItemProcessor<I, O>) itemProcessor);
 		} else if(itemProcessor instanceof ItemProcessor){
-			super.setItemProcessor(new ItemProcessorAdapter<>((ItemProcessor) itemProcessor));
+			super.setItemProcessor(new ItemProcessorAdapter<I, O>((ItemProcessor)itemProcessor));
 		} else {
 			throw new IllegalArgumentException("The definition of an item processor must implement either " +
 					"org.springframework.batch.item.ItemProcessor or javax.batch.api.chunk.ItemProcessor");
@@ -252,7 +252,7 @@ public class StepFactoryBean<I, O> extends StepParserStepFactoryBean<I, O> {
 		if(itemWriter instanceof org.springframework.batch.item.ItemWriter) {
 			super.setItemWriter((org.springframework.batch.item.ItemWriter<O>) itemWriter);
 		} else if(itemWriter instanceof ItemWriter){
-			super.setItemWriter(new ItemWriterAdapter<>((ItemWriter) itemWriter));
+			super.setItemWriter(new ItemWriterAdapter<O>((ItemWriter) itemWriter));
 		} else {
 			throw new IllegalArgumentException("The definition of an item writer must implement either " +
 					"org.springframework.batch.item.ItemWriter or javax.batch.api.chunk.ItemWriter");
@@ -279,15 +279,14 @@ public class StepFactoryBean<I, O> extends StepParserStepFactoryBean<I, O> {
 
 	@Override
 	protected FaultTolerantStepBuilder<I, O> getFaultTolerantStepBuilder(String stepName) {
-		JsrFaultTolerantStepBuilder<I, O> jsrFaultTolerantStepBuilder = new JsrFaultTolerantStepBuilder<>(
-                new StepBuilder(stepName));
+		JsrFaultTolerantStepBuilder<I, O> jsrFaultTolerantStepBuilder = new JsrFaultTolerantStepBuilder<I, O>(new StepBuilder(stepName));
 		jsrFaultTolerantStepBuilder.setBatchPropertyContext(batchPropertyContext);
 		return jsrFaultTolerantStepBuilder;
 	}
 
 	@Override
 	protected SimpleStepBuilder<I, O> getSimpleStepBuilder(String stepName) {
-		JsrSimpleStepBuilder<I, O> jsrSimpleStepBuilder = new JsrSimpleStepBuilder<>(new StepBuilder(stepName));
+		JsrSimpleStepBuilder<I, O> jsrSimpleStepBuilder = new JsrSimpleStepBuilder<I, O>(new StepBuilder(stepName));
 		jsrSimpleStepBuilder.setBatchPropertyContext(batchPropertyContext);
 		return jsrSimpleStepBuilder;
 	}

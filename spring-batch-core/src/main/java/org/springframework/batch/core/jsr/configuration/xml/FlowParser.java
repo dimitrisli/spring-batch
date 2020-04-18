@@ -47,7 +47,7 @@ import org.w3c.dom.NodeList;
 public class FlowParser extends AbstractFlowParser {
 	private static final String NEXT_ATTRIBUTE = "next";
 	private static final String EXIT_STATUS_ATTRIBUTE = "exit-status";
-	private static final List<String> TRANSITION_TYPES = new ArrayList<>();
+	private static final List<String> TRANSITION_TYPES = new ArrayList<String>();
 
 	static {
 		TRANSITION_TYPES.add(NEXT_ELE);
@@ -81,9 +81,9 @@ public class FlowParser extends AbstractFlowParser {
 		builder.addPropertyValue("name", flowName);
 		builder.addPropertyValue("flowType", JsrFlow.class);
 
-		List<BeanDefinition> stateTransitions = new ArrayList<>();
+		List<BeanDefinition> stateTransitions = new ArrayList<BeanDefinition>();
 
-		Map<String, Set<String>> reachableElementMap = new HashMap<>();
+		Map<String, Set<String>> reachableElementMap = new HashMap<String, Set<String>>();
 		String startElement = null;
 		NodeList children = element.getChildNodes();
 		for (int i = 0; i < children.getLength(); i++) {
@@ -103,7 +103,7 @@ public class FlowParser extends AbstractFlowParser {
 			}
 		}
 
-		Set<String> allReachableElements = new HashSet<>();
+		Set<String> allReachableElements = new HashSet<String>();
 		findAllReachableElements(startElement, reachableElementMap, allReachableElements);
 		for (String elementId : reachableElementMap.keySet()) {
 			if (!allReachableElements.contains(elementId)) {
@@ -111,7 +111,7 @@ public class FlowParser extends AbstractFlowParser {
 			}
 		}
 
-		ManagedList<BeanDefinition> managedList = new ManagedList<>();
+		ManagedList<BeanDefinition> managedList = new ManagedList<BeanDefinition>();
 		managedList.addAll(stateTransitions);
 		builder.addPropertyValue("stateTransitions", managedList);
 	}
@@ -144,7 +144,7 @@ public class FlowParser extends AbstractFlowParser {
 	public static Collection<BeanDefinition> getNextElements(ParserContext parserContext, String stepId,
 			BeanDefinition stateDef, Element element) {
 
-		Collection<BeanDefinition> list = new ArrayList<>();
+		Collection<BeanDefinition> list = new ArrayList<BeanDefinition>();
 
 		boolean transitionElementExists = false;
 		boolean failedTransitionElementExists = false;
@@ -256,7 +256,7 @@ public class FlowParser extends AbstractFlowParser {
 
 		}
 
-		Collection<BeanDefinition> list = new ArrayList<>();
+		Collection<BeanDefinition> list = new ArrayList<BeanDefinition>();
 		list.add(getStateTransitionReference(parserContext, stateDef, on, next));
 
 		if(StringUtils.hasText(restart)) {

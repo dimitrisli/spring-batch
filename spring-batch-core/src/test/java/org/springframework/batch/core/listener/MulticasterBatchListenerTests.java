@@ -45,7 +45,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
  */
 public class MulticasterBatchListenerTests {
 
-	private MulticasterBatchListener<Integer, String> multicast = new MulticasterBatchListener<>();
+	private MulticasterBatchListener<Integer, String> multicast = new MulticasterBatchListener<Integer, String>();
 
 	private int count = 0;
 

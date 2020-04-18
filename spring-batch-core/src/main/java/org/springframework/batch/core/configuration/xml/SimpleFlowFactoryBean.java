@@ -114,7 +114,7 @@ public class SimpleFlowFactoryBean implements FactoryBean<SimpleFlow>, Initializ
 
 		flow.setStateTransitionComparator(stateTransitionComparator);
 
-		List<StateTransition> updatedTransitions = new ArrayList<>();
+		List<StateTransition> updatedTransitions = new ArrayList<StateTransition>();
 		for (StateTransition stateTransition : stateTransitions) {
 			State state = getProxyState(stateTransition.getState());
 			updatedTransitions.add(StateTransition.switchOriginAndDestination(stateTransition, state,

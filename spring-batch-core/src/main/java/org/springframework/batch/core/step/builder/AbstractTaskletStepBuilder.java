@@ -55,13 +55,13 @@ import org.springframework.transaction.interceptor.TransactionAttribute;
 public abstract class AbstractTaskletStepBuilder<B extends AbstractTaskletStepBuilder<B>> extends
 StepBuilderHelper<AbstractTaskletStepBuilder<B>> {
 
-	protected Set<ChunkListener> chunkListeners = new LinkedHashSet<>();
+	protected Set<ChunkListener> chunkListeners = new LinkedHashSet<ChunkListener>();
 
 	private RepeatOperations stepOperations;
 
 	private TransactionAttribute transactionAttribute;
 
-	private Set<ItemStream> streams = new LinkedHashSet<>();
+	private Set<ItemStream> streams = new LinkedHashSet<ItemStream>();
 
 	private ExceptionHandler exceptionHandler = new DefaultExceptionHandler();
 

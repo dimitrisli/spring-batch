@@ -37,7 +37,7 @@ import org.springframework.util.ObjectUtils;
  */
 public abstract class StepContextRepeatCallback implements RepeatCallback {
 
-	private final Queue<ChunkContext> attributeQueue = new LinkedBlockingQueue<>();
+	private final Queue<ChunkContext> attributeQueue = new LinkedBlockingQueue<ChunkContext>();
 
 	private final StepExecution stepExecution;
 

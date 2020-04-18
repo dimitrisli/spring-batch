@@ -31,7 +31,7 @@ import org.springframework.core.annotation.Order;
  */
 public class OrderedCompositeTests {
 
-	private OrderedComposite<Object> list = new OrderedComposite<>();
+	private OrderedComposite<Object> list = new OrderedComposite<Object>();
 
 	@Test
 	public void testSetItems() {

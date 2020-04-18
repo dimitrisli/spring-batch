@@ -76,7 +76,7 @@ public abstract class AbstractListenerFactoryBean<T> implements FactoryBean<Obje
 	@Override
 	public Object getObject() {
 		if (metaDataMap == null) {
-			metaDataMap = new HashMap<>();
+			metaDataMap = new HashMap<String, String>();
 		}
 		// Because all annotations and interfaces should be checked for, make
 		// sure that each meta data
@@ -88,15 +88,15 @@ public abstract class AbstractListenerFactoryBean<T> implements FactoryBean<Obje
 			}
 		}
 
-		Set<Class<?>> listenerInterfaces = new HashSet<>();
+		Set<Class<?>> listenerInterfaces = new HashSet<Class<?>>();
 
 		// For every entry in the map, try and find a method by interface, name,
 		// or annotation. If the same
-		Map<String, Set<MethodInvoker>> invokerMap = new HashMap<>();
+		Map<String, Set<MethodInvoker>> invokerMap = new HashMap<String, Set<MethodInvoker>>();
 		boolean synthetic = false;
 		for (Entry<String, String> entry : metaDataMap.entrySet()) {
 			final ListenerMetaData metaData = this.getMetaDataFromPropertyName(entry.getKey());
-			Set<MethodInvoker> invokers = new HashSet<>();
+			Set<MethodInvoker> invokers = new HashSet<MethodInvoker>();
 
 			MethodInvoker invoker;
 			invoker = getMethodInvokerForInterface(metaData.getListenerInterface(), metaData.getMethodName(), delegate,

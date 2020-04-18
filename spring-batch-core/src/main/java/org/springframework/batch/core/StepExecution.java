@@ -72,7 +72,7 @@ public class StepExecution extends Entity {
 
 	private volatile int filterCount;
 
-	private transient volatile List<Throwable> failureExceptions = new CopyOnWriteArrayList<>();
+	private transient volatile List<Throwable> failureExceptions = new CopyOnWriteArrayList<Throwable>();
 
 	/**
 	 * Constructor with mandatory properties.
@@ -511,7 +511,7 @@ public class StepExecution extends Entity {
 	 */
 	private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
 		stream.defaultReadObject();
-		failureExceptions = new ArrayList<>();
+		failureExceptions = new ArrayList<Throwable>();
 	}
 
 	/*

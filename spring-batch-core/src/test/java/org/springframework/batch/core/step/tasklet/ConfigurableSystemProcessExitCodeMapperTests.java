@@ -70,7 +70,7 @@ public class ConfigurableSystemProcessExitCodeMapperTests {
 	 */
 	@Test
 	public void testSetMappingsMissingElseClause() {
-		Map<Object, ExitStatus> missingElse = new HashMap<>();
+		Map<Object, ExitStatus> missingElse = new HashMap<Object, ExitStatus>();
 		try {
 			mapper.setMappings(missingElse);
 			fail();

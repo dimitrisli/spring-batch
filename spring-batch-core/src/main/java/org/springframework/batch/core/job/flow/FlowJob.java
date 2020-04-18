@@ -41,7 +41,7 @@ public class FlowJob extends AbstractJob {
 
 	protected Flow flow;
 
-	private Map<String, Step> stepMap = new ConcurrentHashMap<>();
+	private Map<String, Step> stepMap = new ConcurrentHashMap<String, Step>();
 
 	private volatile boolean initialized = false;
 

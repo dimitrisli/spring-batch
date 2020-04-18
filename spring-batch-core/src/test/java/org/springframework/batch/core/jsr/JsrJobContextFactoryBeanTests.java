@@ -92,7 +92,7 @@ public class JsrJobContextFactoryBeanTests {
 
 	@Test
 	public void testOneJobContextPerThread() throws Exception {
-		List<Future<JobContext>> jobContexts = new ArrayList<>();
+		List<Future<JobContext>> jobContexts = new ArrayList<Future<JobContext>>();
 
 		AsyncTaskExecutor executor = new SimpleAsyncTaskExecutor();
 
@@ -116,7 +116,7 @@ public class JsrJobContextFactoryBeanTests {
 			}));
 		}
 
-		Set<JobContext> contexts = new HashSet<>();
+		Set<JobContext> contexts = new HashSet<JobContext>();
 		for (Future<JobContext> future : jobContexts) {
 			contexts.add(future.get());
 		}

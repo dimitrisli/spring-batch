@@ -104,7 +104,7 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 
 	private BackOffPolicy backOffPolicy;
 
-	private Set<RetryListener> retryListeners = new LinkedHashSet<>();
+	private Set<RetryListener> retryListeners = new LinkedHashSet<RetryListener>();
 
 	private RetryPolicy retryPolicy;
 
@@ -112,19 +112,19 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 
 	private KeyGenerator keyGenerator;
 
-	private Collection<Class<? extends Throwable>> noRollbackExceptionClasses = new LinkedHashSet<>();
+	private Collection<Class<? extends Throwable>> noRollbackExceptionClasses = new LinkedHashSet<Class<? extends Throwable>>();
 
-	private Map<Class<? extends Throwable>, Boolean> skippableExceptionClasses = new HashMap<>();
+	private Map<Class<? extends Throwable>, Boolean> skippableExceptionClasses = new HashMap<Class<? extends Throwable>, Boolean>();
 
-	private Collection<Class<? extends Throwable>> nonSkippableExceptionClasses = new HashSet<>();
+	private Collection<Class<? extends Throwable>> nonSkippableExceptionClasses = new HashSet<Class<? extends Throwable>>();
 
-	private Map<Class<? extends Throwable>, Boolean> retryableExceptionClasses = new HashMap<>();
+	private Map<Class<? extends Throwable>, Boolean> retryableExceptionClasses = new HashMap<Class<? extends Throwable>, Boolean>();
 
-	private Collection<Class<? extends Throwable>> nonRetryableExceptionClasses = new HashSet<>();
+	private Collection<Class<? extends Throwable>> nonRetryableExceptionClasses = new HashSet<Class<? extends Throwable>>();
 
-	private Set<SkipListener<? super I, ? super O>> skipListeners = new LinkedHashSet<>();
+	private Set<SkipListener<? super I, ? super O>> skipListeners = new LinkedHashSet<SkipListener<? super I, ? super O>>();
 
-	private Set<org.springframework.batch.core.jsr.RetryListener> jsrRetryListeners = new LinkedHashSet<>();
+	private Set<org.springframework.batch.core.jsr.RetryListener> jsrRetryListeners = new LinkedHashSet<org.springframework.batch.core.jsr.RetryListener>();
 
 	private int skipLimit = 0;
 
@@ -199,7 +199,7 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 	public SimpleStepBuilder<I, O> listener(Object listener) {
 		super.listener(listener);
 
-		Set<Method> skipListenerMethods = new HashSet<>();
+		Set<Method> skipListenerMethods = new HashSet<Method>();
 		skipListenerMethods.addAll(ReflectionUtils.findMethod(listener.getClass(), OnSkipInRead.class));
 		skipListenerMethods.addAll(ReflectionUtils.findMethod(listener.getClass(), OnSkipInProcess.class));
 		skipListenerMethods.addAll(ReflectionUtils.findMethod(listener.getClass(), OnSkipInWrite.class));
@@ -464,7 +464,7 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 		chunkProcessor.setKeyGenerator(keyGenerator);
 		detectStreamInReader();
 
-		ArrayList<StepListener> listeners = new ArrayList<>(getItemListeners());
+		ArrayList<StepListener> listeners = new ArrayList<StepListener>(getItemListeners());
 		listeners.addAll(skipListeners);
 		chunkProcessor.setListeners(listeners);
 		chunkProcessor.setChunkMonitor(chunkMonitor);
@@ -530,7 +530,7 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 
 			final Classifier<Throwable, Boolean> binary = classifier;
 
-			Collection<Class<? extends Throwable>> types = new HashSet<>();
+			Collection<Class<? extends Throwable>> types = new HashSet<Class<? extends Throwable>>();
 			types.add(ForceRollbackForWriteSkipException.class);
 			types.add(ExhaustedRetryException.class);
 			final Classifier<Throwable, Boolean> panic = new BinaryExceptionClassifier(types, true);
@@ -562,7 +562,7 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 
 	protected SkipPolicy createSkipPolicy() {
 		SkipPolicy skipPolicy = this.skipPolicy;
-		Map<Class<? extends Throwable>, Boolean> map = new HashMap<>(
+		Map<Class<? extends Throwable>, Boolean> map = new HashMap<Class<? extends Throwable>, Boolean>(
 				skippableExceptionClasses);
 		map.put(ForceRollbackForWriteSkipException.class, true);
 		LimitCheckingItemSkipPolicy limitCheckingItemSkipPolicy = new LimitCheckingItemSkipPolicy(skipLimit, map);
@@ -585,7 +585,7 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 		RetryPolicy retryPolicy = this.retryPolicy;
 		SimpleRetryPolicy simpleRetryPolicy = null;
 
-		Map<Class<? extends Throwable>, Boolean> map = new HashMap<>(
+		Map<Class<? extends Throwable>, Boolean> map = new HashMap<Class<? extends Throwable>, Boolean>(
 				retryableExceptionClasses);
 		map.put(ForceRollbackForWriteSkipException.class, true);
 		simpleRetryPolicy = new SimpleRetryPolicy(retryLimit, map);
@@ -647,12 +647,12 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 	private RetryPolicy getFatalExceptionAwareProxy(RetryPolicy retryPolicy) {
 
 		NeverRetryPolicy neverRetryPolicy = new NeverRetryPolicy();
-		Map<Class<? extends Throwable>, RetryPolicy> map = new HashMap<>();
+		Map<Class<? extends Throwable>, RetryPolicy> map = new HashMap<Class<? extends Throwable>, RetryPolicy>();
 		for (Class<? extends Throwable> fatal : nonRetryableExceptionClasses) {
 			map.put(fatal, neverRetryPolicy);
 		}
 
-		SubclassClassifier<Throwable, RetryPolicy> classifier = new SubclassClassifier<>(
+		SubclassClassifier<Throwable, RetryPolicy> classifier = new SubclassClassifier<Throwable, RetryPolicy>(
 				retryPolicy);
 		classifier.setTypeMap(map);
 
@@ -671,12 +671,12 @@ public class FaultTolerantStepBuilder<I, O> extends SimpleStepBuilder<I, O> {
 	protected SkipPolicy getFatalExceptionAwareProxy(SkipPolicy skipPolicy) {
 
 		NeverSkipItemSkipPolicy neverSkipPolicy = new NeverSkipItemSkipPolicy();
-		Map<Class<? extends Throwable>, SkipPolicy> map = new HashMap<>();
+		Map<Class<? extends Throwable>, SkipPolicy> map = new HashMap<Class<? extends Throwable>, SkipPolicy>();
 		for (Class<? extends Throwable> fatal : nonSkippableExceptionClasses) {
 			map.put(fatal, neverSkipPolicy);
 		}
 
-		SubclassClassifier<Throwable, SkipPolicy> classifier = new SubclassClassifier<>(skipPolicy);
+		SubclassClassifier<Throwable, SkipPolicy> classifier = new SubclassClassifier<Throwable, SkipPolicy>(skipPolicy);
 		classifier.setTypeMap(map);
 
 		ExceptionClassifierSkipPolicy skipPolicyWrapper = new ExceptionClassifierSkipPolicy();

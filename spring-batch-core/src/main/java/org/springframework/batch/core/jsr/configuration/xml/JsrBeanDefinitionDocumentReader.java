@@ -70,7 +70,7 @@ public class JsrBeanDefinitionDocumentReader extends DefaultBeanDefinitionDocume
 
 	private BeanDefinitionRegistry beanDefinitionRegistry;
 	private JsrExpressionParser expressionParser = new JsrExpressionParser();
-	private Map<String, Properties> propertyMap = new HashMap<>();
+	private Map<String, Properties> propertyMap = new HashMap<String, Properties>();
 
 	/**
 	 * <p>
@@ -227,7 +227,7 @@ public class JsrBeanDefinitionDocumentReader extends DefaultBeanDefinitionDocume
 		NodeIterator iterator = traversal.createNodeIterator(root, NodeFilter.SHOW_ELEMENT, null, true);
 
 		BeanDefinitionRegistry registry = getBeanDefinitionRegistry();
-		Map<String, Integer> referenceCountMap = new HashMap<>();
+		Map<String, Integer> referenceCountMap = new HashMap<String, Integer>();
 
 		for (Node n = iterator.nextNode(); n != null; n = iterator.nextNode()) {
 			NamedNodeMap map = n.getAttributes();

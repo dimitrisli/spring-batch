@@ -228,7 +228,7 @@ public class JsrPartitionHandlerTests extends AbstractJsrTestCase {
 
 	@Test
 	public void testAnalyzer() throws Exception {
-		Queue<Serializable> queue = new ConcurrentLinkedQueue<>();
+		Queue<Serializable> queue = new ConcurrentLinkedQueue<Serializable>();
 		queue.add("foo");
 		queue.add("bar");
 

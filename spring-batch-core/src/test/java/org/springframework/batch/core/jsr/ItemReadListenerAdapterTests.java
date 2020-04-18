@@ -35,12 +35,12 @@ public class ItemReadListenerAdapterTests {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		adapter = new ItemReadListenerAdapter<>(delegate);
+		adapter = new ItemReadListenerAdapter<String>(delegate);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testNullDelegate() {
-		adapter = new ItemReadListenerAdapter<>(null);
+		adapter = new ItemReadListenerAdapter<String>(null);
 	}
 
 	@Test

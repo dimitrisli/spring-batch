@@ -150,7 +150,7 @@ public class JobParserParentAttributeTests {
 		Object composite = ReflectionTestUtils.getField(compositeListener, "listeners");
 		List<JobExecutionListener> list = (List<JobExecutionListener>) ReflectionTestUtils.getField(composite, "list");
 
-		List<Object> listeners = new ArrayList<>();
+		List<Object> listeners = new ArrayList<Object>();
 		for (Object listener : list) {
 			while (listener instanceof Advised) {
 				listener = ((Advised) listener).getTargetSource().getTarget();
