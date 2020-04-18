@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2019 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package org.springframework.batch.core;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -255,19 +256,20 @@ public class JobParametersBuilder {
 
 		String name = job.getName();
 		JobParameters nextParameters;
-		JobInstance lastInstance = this.jobExplorer.getLastJobInstance(name);
+		List<JobInstance> lastInstances = this.jobExplorer.getJobInstances(name, 0, 1);
 		JobParametersIncrementer incrementer = job.getJobParametersIncrementer();
-		if (lastInstance == null) {
+		if (lastInstances.isEmpty()) {
 			// Start from a completely clean sheet
 			nextParameters = incrementer.getNext(new JobParameters());
 		}
 		else {
-			JobExecution previousExecution = this.jobExplorer.getLastJobExecution(lastInstance);
-			if (previousExecution == null) {
+			List<JobExecution> previousExecutions = this.jobExplorer.getJobExecutions(lastInstances.get(0));
+			if (previousExecutions.isEmpty()) {
 				// Normally this will not happen - an instance exists with no executions
 				nextParameters = incrementer.getNext(new JobParameters());
 			}
 			else {
+				JobExecution previousExecution = previousExecutions.get(0);
 				nextParameters = incrementer.getNext(previousExecution.getJobParameters());
 			}
 		}
