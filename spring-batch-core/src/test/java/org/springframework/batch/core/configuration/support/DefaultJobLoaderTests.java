@@ -42,7 +42,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 /**
  * @author Dave Syer
  * @author Stephane Nicoll
- * @author Mahmoud Ben Hassine
  */
 public class DefaultJobLoaderTests {
 
@@ -267,6 +266,7 @@ public class DefaultJobLoaderTests {
             return Collections.emptyList();
         }
 
+        @Nullable
 		@Override
 		public Step getStep(String stepName) throws NoSuchStepException {
             throw new NoSuchStepException("Step [" + stepName + "] does not exist");

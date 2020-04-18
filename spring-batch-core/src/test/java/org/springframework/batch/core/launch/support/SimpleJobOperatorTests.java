@@ -453,6 +453,7 @@ public class SimpleJobOperatorTests {
 
 		private TaskletStep taskletStep;
 
+		@Nullable
 		@Override
 		public Step getStep(String stepName) {
 			return taskletStep;
