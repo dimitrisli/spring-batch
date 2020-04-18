@@ -1,5 +1,5 @@
 /*
- * Copyright 2006-2020 the original author or authors.
+ * Copyright 2006-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,6 @@ import org.springframework.util.StringUtils;
  * @author Dave Syer
  * @author Michael Minella
  * @author Mahmoud Ben Hassine
- * @author Benjamin Hetz
  * @since 2.0
  */
 public abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvider {
@@ -243,9 +242,9 @@ public abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvi
 
 	private String removeKeyWord(String keyWord, String clause) {
 		String temp = clause.trim();
-		int length = keyWord.length();
-		if (temp.toLowerCase().startsWith(keyWord) && Character.isWhitespace(temp.charAt(length)) && temp.length() > length + 1) {
-			return temp.substring(length + 1);
+		String keyWordString = keyWord + " ";
+		if (temp.toLowerCase().startsWith(keyWordString) && temp.length() > keyWordString.length()) {
+			return temp.substring(keyWordString.length());
 		}
 		else {
 			return temp;
