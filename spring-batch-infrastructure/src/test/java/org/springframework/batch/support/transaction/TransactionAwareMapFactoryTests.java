@@ -33,7 +33,7 @@ public class TransactionAwareMapFactoryTests extends TestCase {
 
     @Override
 	protected void setUp() throws Exception {
-		Map<String, String> seed = new HashMap<>();
+		Map<String, String> seed = new HashMap<String, String>();
 		seed.put("foo", "oof");
 		seed.put("bar", "bar");
 		seed.put("spam", "maps");

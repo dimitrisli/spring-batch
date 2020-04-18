@@ -33,7 +33,7 @@ import org.springframework.classify.ClassifierSupport;
 public class ClassifierCompositeItemProcessor<I,O> implements ItemProcessor<I, O> {
 
 	private Classifier<? super I, ItemProcessor<?, ? extends O>> classifier = 
-			new ClassifierSupport<> (null);
+			new ClassifierSupport<I, ItemProcessor<?, ? extends O>> (null);
 
 	/**
 	 * Establishes the classifier that will determine which {@link ItemProcessor} to use.

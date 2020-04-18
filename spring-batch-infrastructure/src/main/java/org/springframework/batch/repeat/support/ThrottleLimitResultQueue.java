@@ -44,7 +44,7 @@ public class ThrottleLimitResultQueue<T> implements ResultQueue<T> {
 	 * at any given time.
 	 */
 	public ThrottleLimitResultQueue(int throttleLimit) {
-		results = new LinkedBlockingQueue<>();
+		results = new LinkedBlockingQueue<T>();
 		waits = new Semaphore(throttleLimit);
 	}
 

@@ -95,7 +95,7 @@ public class JdbcPagingItemReaderAsyncTests {
 
 	@Test
 	public void testAsyncReader() throws Throwable {
-		List<Throwable> throwables = new ArrayList<>();
+		List<Throwable> throwables = new ArrayList<Throwable>();
 		int max = 10;
 		for (int i = 0; i < max; i++) {
 			try {
@@ -118,13 +118,13 @@ public class JdbcPagingItemReaderAsyncTests {
 	 */
 	private void doTest() throws Exception, InterruptedException, ExecutionException {
 		final ItemReader<Foo> reader = getItemReader();
-		CompletionService<List<Foo>> completionService = new ExecutorCompletionService<>(Executors
+		CompletionService<List<Foo>> completionService = new ExecutorCompletionService<List<Foo>>(Executors
 				.newFixedThreadPool(THREAD_COUNT));
 		for (int i = 0; i < THREAD_COUNT; i++) {
 			completionService.submit(new Callable<List<Foo>>() {
                 @Override
 				public List<Foo> call() throws Exception {
-					List<Foo> list = new ArrayList<>();
+					List<Foo> list = new ArrayList<Foo>();
 					Foo next = null;
 					do {
 						next = reader.read();
@@ -139,7 +139,7 @@ public class JdbcPagingItemReaderAsyncTests {
 			});
 		}
 		int count = 0;
-		Set<Foo> results = new HashSet<>();
+		Set<Foo> results = new HashSet<Foo>();
 		for (int i = 0; i < THREAD_COUNT; i++) {
 			List<Foo> items = completionService.take().get();
 			count += items.size();
@@ -154,12 +154,12 @@ public class JdbcPagingItemReaderAsyncTests {
 
 	protected ItemReader<Foo> getItemReader() throws Exception {
 
-		JdbcPagingItemReader<Foo> reader = new JdbcPagingItemReader<>();
+		JdbcPagingItemReader<Foo> reader = new JdbcPagingItemReader<Foo>();
 		reader.setDataSource(dataSource);
 		HsqlPagingQueryProvider queryProvider = new HsqlPagingQueryProvider();
 		queryProvider.setSelectClause("select ID, NAME, VALUE");
 		queryProvider.setFromClause("from T_FOOS");
-		Map<String, Order> sortKeys = new LinkedHashMap<>();
+		Map<String, Order> sortKeys = new LinkedHashMap<String, Order>();
 		sortKeys.put("ID", Order.ASCENDING);
 		queryProvider.setSortKeys(sortKeys);
 		reader.setQueryProvider(queryProvider);

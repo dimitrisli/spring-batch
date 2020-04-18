@@ -40,15 +40,15 @@ public class GemfireItemWriterTests {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		writer = new GemfireItemWriter<>();
+		writer = new GemfireItemWriter<String, Foo>();
 		writer.setTemplate(template);
-		writer.setItemKeyMapper(new SpELItemKeyMapper<>("bar.val"));
+		writer.setItemKeyMapper(new SpELItemKeyMapper<String, Foo>("bar.val"));
 		writer.afterPropertiesSet();
 	}
 
 	@Test
 	public void testAfterPropertiesSet() throws Exception {
-		writer = new GemfireItemWriter<>();
+		writer = new GemfireItemWriter<String, Foo>();
 
 		try {
 			writer.afterPropertiesSet();
@@ -63,7 +63,7 @@ public class GemfireItemWriterTests {
 		} catch (IllegalArgumentException iae) {
 		}
 
-		writer.setItemKeyMapper(new SpELItemKeyMapper<>("foo"));
+		writer.setItemKeyMapper(new SpELItemKeyMapper<String, Foo>("foo"));
 		writer.afterPropertiesSet();
 	}
 
@@ -105,7 +105,7 @@ public class GemfireItemWriterTests {
 				add(new Foo(new Bar("val2")));
 			}
 		};
-		writer = new GemfireItemWriter<>();
+		writer = new GemfireItemWriter<String, Foo>();
 		writer.setTemplate(template);
 		writer.setItemKeyMapper(new Converter<Foo, String>() {
 

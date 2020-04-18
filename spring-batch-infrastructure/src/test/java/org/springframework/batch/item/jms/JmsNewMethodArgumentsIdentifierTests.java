@@ -31,7 +31,7 @@ import org.junit.Test;
  */
 public class JmsNewMethodArgumentsIdentifierTests {
 	
-	private JmsNewMethodArgumentsIdentifier<String> newMethodArgumentsIdentifier = new JmsNewMethodArgumentsIdentifier<>();
+	private JmsNewMethodArgumentsIdentifier<String> newMethodArgumentsIdentifier = new JmsNewMethodArgumentsIdentifier<String>(); 
 
 	@Test
 	public void testIsNewForMessage() throws Exception {

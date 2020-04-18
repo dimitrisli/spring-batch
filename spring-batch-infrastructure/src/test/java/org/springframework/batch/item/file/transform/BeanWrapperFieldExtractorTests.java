@@ -29,7 +29,7 @@ import org.springframework.beans.NotReadablePropertyException;
  */
 public class BeanWrapperFieldExtractorTests {
 
-	private BeanWrapperFieldExtractor<Name> extractor = new BeanWrapperFieldExtractor<>();
+	private BeanWrapperFieldExtractor<Name> extractor = new BeanWrapperFieldExtractor<Name>();
 
 	@Test
 	public void testExtract() throws Exception {

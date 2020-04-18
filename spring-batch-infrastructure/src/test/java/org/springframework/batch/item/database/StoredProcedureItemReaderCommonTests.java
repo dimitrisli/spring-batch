@@ -35,7 +35,7 @@ public class StoredProcedureItemReaderCommonTests extends AbstractDatabaseItemSt
 
     @Override
 	protected ItemReader<Foo> getItemReader() throws Exception {
-		StoredProcedureItemReader<Foo> result = new StoredProcedureItemReader<>();
+		StoredProcedureItemReader<Foo> result = new StoredProcedureItemReader<Foo>();
 		result.setDataSource(getDataSource());
 		result.setProcedureName("read_foos");
 		result.setRowMapper(new FooRowMapper());

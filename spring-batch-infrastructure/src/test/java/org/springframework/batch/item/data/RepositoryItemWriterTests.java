@@ -40,7 +40,7 @@ public class RepositoryItemWriterTests {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		writer = new RepositoryItemWriter<>();
+		writer = new RepositoryItemWriter<String>();
 		writer.setMethodName("save");
 		writer.setRepository(repository);
 	}
@@ -62,7 +62,7 @@ public class RepositoryItemWriterTests {
 	public void testWriteNoItems() throws Exception {
 		writer.write(null);
 
-		writer.write(new ArrayList<>());
+		writer.write(new ArrayList<String>());
 
 		verifyZeroInteractions(repository);
 	}

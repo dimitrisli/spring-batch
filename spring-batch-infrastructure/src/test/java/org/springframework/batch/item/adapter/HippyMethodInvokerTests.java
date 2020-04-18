@@ -90,7 +90,7 @@ public class HippyMethodInvokerTests {
 			}
 		}
 
-		TreeSet<Object> arg = new TreeSet<>();
+		TreeSet<Object> arg = new TreeSet<Object>();
 		OverloadingPojo target = new OverloadingPojo();
 		assertEquals(target.foo(arg), Set.class);
 

@@ -60,7 +60,7 @@ public abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvi
 
 	private String whereClause;
 	
-	private Map<String, Order> sortKeys = new LinkedHashMap<>();
+	private Map<String, Order> sortKeys = new LinkedHashMap<String, Order>();
 
 	private String groupClause;
 
@@ -198,7 +198,7 @@ public abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvi
 		if(groupClause != null) {
 			sql.append(" GROUP BY ").append(groupClause);
 		}
-		List<String> namedParameters = new ArrayList<>();
+		List<String> namedParameters = new ArrayList<String>();
 		parameterCount = JdbcParameterUtils.countParameterPlaceholders(sql.toString(), namedParameters);
 		if (namedParameters.size() > 0) {
 			if (parameterCount != namedParameters.size()) {
@@ -257,7 +257,7 @@ public abstract class AbstractSqlPagingQueryProvider implements PagingQueryProvi
 	 */
 	@Override
 	public Map<String, Order> getSortKeysWithoutAliases() {
-		Map<String, Order> sortKeysWithoutAliases = new LinkedHashMap<>();
+		Map<String, Order> sortKeysWithoutAliases = new LinkedHashMap<String, Order>();
 
 		for (Map.Entry<String, Order> sortKeyEntry : sortKeys.entrySet()) {
 			String key = sortKeyEntry.getKey();

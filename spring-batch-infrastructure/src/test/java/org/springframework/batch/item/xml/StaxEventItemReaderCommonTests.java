@@ -37,7 +37,7 @@ public class StaxEventItemReaderCommonTests extends AbstractItemStreamItemReader
 
     @Override
 	protected ItemReader<Foo> getItemReader() throws Exception {
-		StaxEventItemReader<Foo> reader = new StaxEventItemReader<>();
+		StaxEventItemReader<Foo> reader = new StaxEventItemReader<Foo>();
 		reader.setResource(new ByteArrayResource(FOOS.getBytes()));
 		reader.setFragmentRootElementName("foo");
 		reader.setUnmarshaller(new Unmarshaller() {

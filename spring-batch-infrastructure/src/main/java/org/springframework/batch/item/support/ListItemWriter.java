@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ListItemWriter<T> implements ItemWriter<T> {
 
-	private List<T> writtenItems = new ArrayList<>();
+	private List<T> writtenItems = new ArrayList<T>();
 
 	@Override
 	public void write(List<? extends T> items) throws Exception {

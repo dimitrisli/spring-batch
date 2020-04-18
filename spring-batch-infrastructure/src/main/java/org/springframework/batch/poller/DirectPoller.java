@@ -48,7 +48,7 @@ public class DirectPoller<S> implements Poller<S> {
 	 */
     @Override
 	public Future<S> poll(Callable<S> callable) throws Exception {
-		return new DirectPollingFuture<>(interval, callable);
+		return new DirectPollingFuture<S>(interval, callable);
 	}
 
 	private static class DirectPollingFuture<S> implements Future<S> {

@@ -32,7 +32,7 @@ public class ClassifierCompositeItemProcessorTests {
 	
 	@Test
 	public void testBasicClassifierCompositeItemProcessor() throws Exception {
-		ClassifierCompositeItemProcessor<String, String> processor = new ClassifierCompositeItemProcessor<>();
+		ClassifierCompositeItemProcessor<String, String> processor = new ClassifierCompositeItemProcessor<String, String>();
 		
 		ItemProcessor<String, String> fooProcessor = new ItemProcessor<String, String>() {
 			@Override
@@ -48,10 +48,10 @@ public class ClassifierCompositeItemProcessorTests {
 		};
 		
 		Map<String, ItemProcessor<?, ? extends String>> routingConfiguration = 
-				new HashMap<>();
+				new HashMap<String, ItemProcessor<?, ? extends String>>();
 		routingConfiguration.put("foo", fooProcessor);
 		routingConfiguration.put("*", defaultProcessor);
-		processor.setClassifier(new PatternMatchingClassifier<>(routingConfiguration));
+		processor.setClassifier(new PatternMatchingClassifier<ItemProcessor<?, ? extends String>>(routingConfiguration));
 		
 		assertEquals("bar", processor.process("bar"));
 		assertEquals("foo: foo", processor.process("foo"));
@@ -63,7 +63,7 @@ public class ClassifierCompositeItemProcessorTests {
 	 */
 	@Test
 	public void testGenericsClassifierCompositeItemProcessor() throws Exception {
-		ClassifierCompositeItemProcessor<Number, CharSequence> processor = new ClassifierCompositeItemProcessor<>();
+		ClassifierCompositeItemProcessor<Number, CharSequence> processor = new ClassifierCompositeItemProcessor<Number, CharSequence>();
 		
 		ItemProcessor<Integer, String> intProcessor = new ItemProcessor<Integer, String>() {
 			@Override
@@ -85,9 +85,9 @@ public class ClassifierCompositeItemProcessorTests {
 		};
 		
 		SubclassClassifier<Number, ItemProcessor<?, ? extends CharSequence>> classifier = 
-				new SubclassClassifier<>();
+				new SubclassClassifier<Number, ItemProcessor<?, ? extends CharSequence>>();
 		Map<Class<? extends Number>, ItemProcessor<?, ? extends CharSequence>> typeMap = 
-				new HashMap<>();
+				new HashMap<Class<? extends Number>, ItemProcessor<?, ? extends CharSequence>>();
 		typeMap.put(Integer.class, intProcessor);
 		typeMap.put(Long.class, longProcessor);
 		typeMap.put(Number.class, defaultProcessor);

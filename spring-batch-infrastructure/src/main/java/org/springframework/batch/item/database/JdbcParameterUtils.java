@@ -55,7 +55,7 @@ public class JdbcParameterUtils {
 
 		char[] statement = sql.toCharArray();
 		boolean withinQuotes = false;
-		Map<String, StringBuilder> namedParameters = new HashMap<>();
+		Map<String, StringBuilder> namedParameters = new HashMap<String, StringBuilder>();
 		char currentQuote = '-';
 		int parameterCount = 0;
 		int i = 0;

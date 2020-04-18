@@ -29,6 +29,6 @@ public class SpELMappingGemfireItemWriter<K, V> extends GemfireItemWriter<K, V> 
 	SpELMappingGemfireItemWriter(String keyExpression) {
 		super();
 		Assert.hasText(keyExpression, "a valid keyExpression is required.");
-		setItemKeyMapper(new SpELItemKeyMapper<>(keyExpression));
+		setItemKeyMapper(new SpELItemKeyMapper<K, V>(keyExpression));
 	}
 }

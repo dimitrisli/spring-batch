@@ -91,7 +91,7 @@ public class AnnotationMethodResolver implements MethodResolver {
     @Override
 	public Method findMethod(final Class<?> clazz) {
 		Assert.notNull(clazz, "class must not be null");
-		final AtomicReference<Method> annotatedMethod = new AtomicReference<>();
+		final AtomicReference<Method> annotatedMethod = new AtomicReference<Method>();
 		ReflectionUtils.doWithMethods(clazz, new ReflectionUtils.MethodCallback() {
             @Override
 			public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {

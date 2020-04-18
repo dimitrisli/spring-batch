@@ -37,7 +37,7 @@ public class JpaPagingItemReaderParameterTests extends AbstractPagingItemReaderP
 
 		String jpqlQuery = "select f from Foo f where f.value >= :limit";
 
-		JpaPagingItemReader<Foo> reader = new JpaPagingItemReader<>();
+		JpaPagingItemReader<Foo> reader = new JpaPagingItemReader<Foo>();
 		reader.setQueryString(jpqlQuery);
 		reader.setParameterValues(Collections.<String, Object>singletonMap("limit", 2));
 		reader.setEntityManagerFactory(entityManagerFactory);

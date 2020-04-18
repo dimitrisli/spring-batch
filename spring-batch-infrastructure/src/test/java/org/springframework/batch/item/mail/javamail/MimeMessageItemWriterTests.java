@@ -96,7 +96,7 @@ public class MimeMessageItemWriterTests {
 	@Test
 	public void testCustomErrorHandler() throws Exception {
 
-		final AtomicReference<String> content = new AtomicReference<>();
+		final AtomicReference<String> content = new AtomicReference<String>();
 		writer.setMailErrorHandler(new MailErrorHandler() {
             @Override
 			public void handle(MailMessage message, Exception exception) throws MailException {

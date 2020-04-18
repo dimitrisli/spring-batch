@@ -41,7 +41,7 @@ public class FormatterLineAggregatorTests {
 
 	@Before
 	public void setup() {
-		aggregator = new FormatterLineAggregator<>();
+		aggregator = new FormatterLineAggregator<String[]>();
 		aggregator.setFieldExtractor(defaultFieldExtractor);
 	}
 

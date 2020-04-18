@@ -99,7 +99,7 @@ public class FixedLengthTokenizer extends AbstractLineTokenizer {
 	 */
     @Override
 	protected List<String> doTokenize(String line) {
-		List<String> tokens = new ArrayList<>(ranges.length);
+		List<String> tokens = new ArrayList<String>(ranges.length);
 		int lineLength;
 		String token;
 

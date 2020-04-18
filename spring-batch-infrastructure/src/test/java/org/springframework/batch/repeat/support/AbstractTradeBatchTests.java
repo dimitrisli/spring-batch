@@ -56,7 +56,7 @@ public abstract class AbstractTradeBatchTests {
 		protected TradeItemReader(Resource resource) throws Exception {
 			super();
 			setResource(resource);
-			DefaultLineMapper<Trade> mapper = new DefaultLineMapper<>();
+			DefaultLineMapper<Trade> mapper = new DefaultLineMapper<Trade>();
 			mapper.setLineTokenizer(new DelimitedLineTokenizer());
 			mapper.setFieldSetMapper(new TradeMapper());
 			setLineMapper(mapper);

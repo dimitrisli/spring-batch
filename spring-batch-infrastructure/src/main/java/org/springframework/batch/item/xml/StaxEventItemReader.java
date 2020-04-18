@@ -112,7 +112,7 @@ ResourceAwareItemReaderItemStream<T>, InitializingBean {
 	 * @param fragmentRootElementNames list of the names of the root element of the fragment
 	 */
 	public void setFragmentRootElementNames(String[] fragmentRootElementNames) {
-		this.fragmentRootElementNames = new ArrayList<>();
+		this.fragmentRootElementNames = new ArrayList<QName>();
 		for (String fragmentRootElementName : fragmentRootElementNames) {
 			this.fragmentRootElementNames.add(parseFragmentRootElementName(fragmentRootElementName));
 		}

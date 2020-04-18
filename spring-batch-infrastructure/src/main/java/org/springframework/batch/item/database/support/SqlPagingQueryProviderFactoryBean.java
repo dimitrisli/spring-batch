@@ -67,7 +67,7 @@ public class SqlPagingQueryProviderFactoryBean implements FactoryBean<PagingQuer
 
 	private Map<String, Order> sortKeys;
 
-	private Map<DatabaseType, AbstractSqlPagingQueryProvider> providers = new HashMap<>();
+	private Map<DatabaseType, AbstractSqlPagingQueryProvider> providers = new HashMap<DatabaseType, AbstractSqlPagingQueryProvider>();
 
 
 	{
@@ -138,7 +138,7 @@ public class SqlPagingQueryProviderFactoryBean implements FactoryBean<PagingQuer
 	public void setSortKey(String key) {
 		Assert.doesNotContain(key, ",", "String setter is valid for a single ASC key only");
 		
-		Map<String, Order> keys = new LinkedHashMap<>();
+		Map<String, Order> keys = new LinkedHashMap<String, Order>();
 		keys.put(key, Order.ASCENDING);
 		
 		this.sortKeys = keys;

@@ -39,7 +39,7 @@ public class AbstractMultiResourceItemWriterTests {
 	protected ExecutionContext executionContext = new ExecutionContext();
 
 	protected void setUp(ResourceAwareItemWriterItemStream<String> delegate) throws Exception {
-		tested = new MultiResourceItemWriter<>();
+		tested = new MultiResourceItemWriter<String>();
 		tested.setResource(new FileSystemResource(file));
 		tested.setDelegate(delegate);
 		tested.setResourceSuffixCreator(suffixCreator);

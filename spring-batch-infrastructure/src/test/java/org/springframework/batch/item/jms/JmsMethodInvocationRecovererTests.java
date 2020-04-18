@@ -27,7 +27,7 @@ import org.springframework.jms.core.JmsOperations;
  */
 public class JmsMethodInvocationRecovererTests {
 
-	private JmsMethodInvocationRecoverer<String> itemReader = new JmsMethodInvocationRecoverer<>();
+	private JmsMethodInvocationRecoverer<String> itemReader = new JmsMethodInvocationRecoverer<String>();
 
 	@Test
 	public void testRecoverWithNoDestination() throws Exception {

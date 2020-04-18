@@ -32,7 +32,7 @@ import javax.xml.stream.events.XMLEvent;
  */
 public class UnclosedElementCollectingEventWriter extends AbstractEventWriterWrapper {
 
-	private LinkedList<QName> unclosedElements = new LinkedList<>();
+	private LinkedList<QName> unclosedElements = new LinkedList<QName>();
 
 	public UnclosedElementCollectingEventWriter(XMLEventWriter wrappedEventWriter) {
 		super(wrappedEventWriter);

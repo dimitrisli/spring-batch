@@ -33,7 +33,7 @@ public class BeanWrapperFieldSetMapperConcurrentTests {
 
 	@Test
 	public void testConcurrentUsage() throws Exception {
-		final BeanWrapperFieldSetMapper<GreenBean> mapper = new BeanWrapperFieldSetMapper<>();
+		final BeanWrapperFieldSetMapper<GreenBean> mapper = new BeanWrapperFieldSetMapper<GreenBean>();
 		mapper.setStrict(true);
 		mapper.setTargetType(GreenBean.class);
 		// mapper.setDistanceLimit(0);
@@ -42,7 +42,7 @@ public class BeanWrapperFieldSetMapperConcurrentTests {
 		lineTokenizer.setNames(names);
 
 		ExecutorService executorService = Executors.newFixedThreadPool(5);
-		Collection<Future<Boolean>> results = new ArrayList<>();
+		Collection<Future<Boolean>> results = new ArrayList<Future<Boolean>>();
 		for (int i = 0; i < 10; i++) {
 			Future<Boolean> result = executorService.submit(new Callable<Boolean>() {
                 @Override

@@ -88,7 +88,7 @@ public class CompositeCompletionPolicy implements CompletionPolicy {
 	 */
     @Override
 	public RepeatContext start(RepeatContext context) {
-		List<RepeatContext> list = new ArrayList<>();
+		List<RepeatContext> list = new ArrayList<RepeatContext>();
 		for (int i = 0; i < policies.length; i++) {
 			list.add(policies[i].start(context));
 		}

@@ -32,9 +32,9 @@ import static org.junit.Assert.*;
  */
 public class MultiResourceItemReaderResourceAwareTests {
 
-	private MultiResourceItemReader<Foo> tested = new MultiResourceItemReader<>();
+	private MultiResourceItemReader<Foo> tested = new MultiResourceItemReader<Foo>();
 
-	private FlatFileItemReader<Foo> itemReader = new FlatFileItemReader<>();
+	private FlatFileItemReader<Foo> itemReader = new FlatFileItemReader<Foo>();
 
 	private ExecutionContext ctx = new ExecutionContext();
 

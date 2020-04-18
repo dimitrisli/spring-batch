@@ -48,7 +48,7 @@ public class ItemReaderAdapterTests {
 	 */
 	@Test
 	public void testNext() throws Exception {
-		List<Object> returnedItems = new ArrayList<>();
+		List<Object> returnedItems = new ArrayList<Object>();
 		Object item;
 		while ((item = provider.read()) != null) {
 			returnedItems.add(item);

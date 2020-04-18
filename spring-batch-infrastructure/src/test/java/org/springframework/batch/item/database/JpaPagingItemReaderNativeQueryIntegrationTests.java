@@ -42,10 +42,10 @@ public class JpaPagingItemReaderNativeQueryIntegrationTests extends AbstractPagi
 
         String sqlQuery = "select * from T_FOOS where value >= :limit";
 
-        JpaPagingItemReader<Foo> reader = new JpaPagingItemReader<>();
+        JpaPagingItemReader<Foo> reader = new JpaPagingItemReader<Foo>();
         
         //creating a native query provider as it would be created in configuration
-        JpaNativeQueryProvider<Foo> queryProvider= new JpaNativeQueryProvider<>();
+        JpaNativeQueryProvider<Foo> queryProvider= new JpaNativeQueryProvider<Foo>();
         queryProvider.setSqlQuery(sqlQuery);
         queryProvider.setEntityClass(Foo.class);
         queryProvider.afterPropertiesSet();

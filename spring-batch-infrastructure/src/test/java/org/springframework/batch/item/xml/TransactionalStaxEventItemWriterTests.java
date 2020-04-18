@@ -255,7 +255,7 @@ public class TransactionalStaxEventItemWriterTests {
 	 * @return new instance of fully configured writer
 	 */
 	private StaxEventItemWriter<Object> createItemWriter() throws Exception {
-		StaxEventItemWriter<Object> source = new StaxEventItemWriter<>();
+		StaxEventItemWriter<Object> source = new StaxEventItemWriter<Object>();
 		source.setResource(resource);
 
 		Marshaller marshaller = new SimpleMarshaller();

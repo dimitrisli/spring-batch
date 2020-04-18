@@ -117,7 +117,7 @@ public class ItemWriterAdapterTests {
 
 	@Test
 	public void testCheckpointChange() throws Exception {
-		ItemWriterAdapter<String> adapter = new ItemWriterAdapter<>(new ItemWriter() {
+		ItemWriterAdapter<String> adapter = new ItemWriterAdapter<String>(new ItemWriter() {
 
 			private CheckpointContainer container = null;
 
@@ -143,7 +143,7 @@ public class ItemWriterAdapterTests {
 
 		ExecutionContext context = new ExecutionContext();
 
-		List<String> items = new ArrayList<>();
+		List<String> items = new ArrayList<String>();
 		items.add("foo");
 		items.add("bar");
 		items.add("baz");
