@@ -78,8 +78,6 @@ public enum DatabaseType {
 	 * @throws IllegalArgumentException if none is found.
 	 */
 	public static DatabaseType fromProductName(String productName){
-		if(productName.equals("MariaDB"))
-			productName = "MySQL";
 		if(!nameMap.containsKey(productName)){
 			throw new IllegalArgumentException("DatabaseType not found for product name: [" +
 					productName + "]");
