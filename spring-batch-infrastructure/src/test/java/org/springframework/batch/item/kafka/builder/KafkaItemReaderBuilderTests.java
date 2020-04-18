@@ -1,238 +1,143 @@
-/*
- * Copyright 2019 the original author or authors.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *          https://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-
 package org.springframework.batch.item.kafka.builder;
 
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.when;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.batch.item.kafka.KafkaItemReader;
+import org.springframework.batch.item.kafka.OffsetsProvider;
+import org.springframework.batch.item.kafka.support.BeginningOffsetsProvider;
+import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 /**
  * @author Mathieu Ouellet
- * @author Mahmoud Ben Hassine
  */
 public class KafkaItemReaderBuilderTests {
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
-	private Properties consumerProperties;
+	@Mock
+	private ConsumerFactory<Object, Object> consumerFactory;
+	@Mock
+	private OffsetsProvider offsetsProvider;
+
+	private List<TopicPartition> topicPartitions = Collections.singletonList(new TopicPartition("topic", 0));
 
 	@Before
-	public void setUp() throws Exception {
-		this.consumerProperties = new Properties();
-		this.consumerProperties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-		this.consumerProperties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "1");
-		this.consumerProperties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-				StringDeserializer.class.getName());
-		this.consumerProperties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-				StringDeserializer.class.getName());
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		Map<String, Object> config = new HashMap<>();
+		config.put("max.poll.records", 2);
+		config.put("enable.auto.commit", false);
+		when(consumerFactory.getConfigurationProperties()).thenReturn(config);
 	}
 
 	@Test
-	public void testNullConsumerProperties() {
+	public void testNullConsumerFactory() {
 		this.thrown.expect(IllegalArgumentException.class);
-		this.thrown.expectMessage("Consumer properties must not be null");
+		this.thrown.expectMessage("'consumerFactory' must not be null.");
 
 		new KafkaItemReaderBuilder<>()
 				.name("kafkaItemReader")
-				.consumerProperties(null)
+				.topicPartitions(topicPartitions)
+				.consumerFactory(null)
+				.offsetsProvider(offsetsProvider)
 				.build();
 	}
 
 	@Test
-	public void testConsumerPropertiesValidation() {
-		try {
-			new KafkaItemReaderBuilder<>()
-					.name("kafkaItemReader")
-					.consumerProperties(new Properties())
-					.build();
-			fail("Expected exception was not thrown");
-		} catch (IllegalArgumentException exception) {
-			assertEquals("bootstrap.servers property must be provided", exception.getMessage());
-		}
-
-		Properties consumerProperties = new Properties();
-		consumerProperties.put("bootstrap.servers", "foo");
-		try {
-			new KafkaItemReaderBuilder<>()
-					.name("kafkaItemReader")
-					.consumerProperties(consumerProperties)
-					.build();
-			fail("Expected exception was not thrown");
-		} catch (IllegalArgumentException exception) {
-			assertEquals("group.id property must be provided", exception.getMessage());
-		}
-
-		consumerProperties.put("group.id", "1");
-		try {
-			new KafkaItemReaderBuilder<>()
-					.name("kafkaItemReader")
-					.consumerProperties(consumerProperties)
-					.build();
-			fail("Expected exception was not thrown");
-		} catch (IllegalArgumentException exception) {
-			assertEquals("key.deserializer property must be provided", exception.getMessage());
-		}
-
-		consumerProperties.put("key.deserializer", StringDeserializer.class.getName());
-		try {
-			new KafkaItemReaderBuilder<>()
-					.name("kafkaItemReader")
-					.consumerProperties(consumerProperties)
-					.build();
-			fail("Expected exception was not thrown");
-		} catch (IllegalArgumentException exception) {
-			assertEquals("value.deserializer property must be provided", exception.getMessage());
-		}
-
-		consumerProperties.put("value.deserializer", StringDeserializer.class.getName());
-		try {
-			new KafkaItemReaderBuilder<>()
-					.name("kafkaItemReader")
-					.consumerProperties(consumerProperties)
-					.topic("test")
-					.partitions(0, 1)
-					.build();
-		} catch (Exception exception) {
-			fail("Must not throw an exception when configuration is valid");
-		}
-	}
-
-	@Test
-	public void testNullTopicName() {
-		this.thrown.expect(IllegalArgumentException.class);
-		this.thrown.expectMessage("Topic name must not be null or empty");
+	public void testNullTopicsAndTopicPartitions() {
+		this.thrown.expect(IllegalStateException.class);
+		this.thrown.expectMessage("Either 'topicPartitions' or 'topics' must be provided.");
 
 		new KafkaItemReaderBuilder<>()
 				.name("kafkaItemReader")
-				.consumerProperties(this.consumerProperties)
-				.topic(null)
+				.topicPartitions(null)
+				.consumerFactory(consumerFactory)
+				.offsetsProvider(offsetsProvider)
 				.build();
 	}
 
 	@Test
-	public void testEmptyTopicName() {
+	public void testPollTimeoutNegative() {
 		this.thrown.expect(IllegalArgumentException.class);
-		this.thrown.expectMessage("Topic name must not be null or empty");
+		this.thrown.expectMessage("pollTimeout must not be negative.");
 
 		new KafkaItemReaderBuilder<>()
 				.name("kafkaItemReader")
-				.consumerProperties(this.consumerProperties)
-				.topic("")
+				.consumerFactory(consumerFactory)
+				.topicPartitions(topicPartitions)
+				.offsetsProvider(offsetsProvider)
+				.pollTimeout(-1)
 				.build();
 	}
 
 	@Test
-	public void testNullPollTimeout() {
+	public void testNullOffsetsProvider() {
 		this.thrown.expect(IllegalArgumentException.class);
-		this.thrown.expectMessage("pollTimeout must not be null");
+		this.thrown.expectMessage("'offsetsProvider' must not be null.");
 
 		new KafkaItemReaderBuilder<>()
 				.name("kafkaItemReader")
-				.consumerProperties(this.consumerProperties)
-				.topic("test")
-				.pollTimeout(null)
+				.consumerFactory(consumerFactory)
+				.topicPartitions(topicPartitions)
+				.offsetsProvider(null)
 				.build();
 	}
 
 	@Test
-	public void testNegativePollTimeout() {
-		this.thrown.expect(IllegalArgumentException.class);
-		this.thrown.expectMessage("pollTimeout must not be negative");
+	public void testOffsetsProviderWithAutoCommitConsumerFactory() {
+		this.thrown.expect(IllegalStateException.class);
+		this.thrown.expectMessage("'AutoCommitOffsetsProvider' must be used if 'consumerFactory' is set to auto commit.");
+
+		when(consumerFactory.isAutoCommit()).thenReturn(true);
 
 		new KafkaItemReaderBuilder<>()
 				.name("kafkaItemReader")
-				.consumerProperties(this.consumerProperties)
-				.topic("test")
-				.pollTimeout(Duration.ofSeconds(-1))
+				.consumerFactory(consumerFactory)
+				.topicPartitions(topicPartitions)
+				.offsetsProvider(new BeginningOffsetsProvider())
 				.build();
 	}
 
 	@Test
-	public void testZeroPollTimeout() {
-		this.thrown.expect(IllegalArgumentException.class);
-		this.thrown.expectMessage("pollTimeout must not be zero");
-
-		new KafkaItemReaderBuilder<>()
-				.name("kafkaItemReader")
-				.consumerProperties(this.consumerProperties)
-				.topic("test")
-				.pollTimeout(Duration.ZERO)
-				.build();
-	}
-
-	@Test
-	public void testEmptyPartitions() {
-		this.thrown.expect(IllegalArgumentException.class);
-		this.thrown.expectMessage("At least one partition must be provided");
-
-		new KafkaItemReaderBuilder<>()
-				.name("kafkaItemReader")
-				.consumerProperties(this.consumerProperties)
-				.topic("test")
-				.pollTimeout(Duration.ofSeconds(10))
-				.build();
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	public void testKafkaItemReaderCreation() {
+	public void testKafkaItemReaderBuild() {
 		// given
 		boolean saveState = false;
-		Duration pollTimeout = Duration.ofSeconds(100);
-		String topic = "test";
-		List<Integer> partitions = Arrays.asList(0, 1);
+		long pollTimeout = 100;
+		int maxItemCount = 100;
 
 		// when
-		KafkaItemReader<String, String> reader = new KafkaItemReaderBuilder<String, String>()
-				.name("kafkaItemReader")
-				.consumerProperties(this.consumerProperties)
-				.topic(topic)
-				.partitions(partitions)
+		KafkaItemReader<Object, Object> reader = new KafkaItemReaderBuilder<>()
+				.consumerFactory(consumerFactory)
+				.topicPartitions(topicPartitions)
+				.offsetsProvider(offsetsProvider)
 				.pollTimeout(pollTimeout)
 				.saveState(saveState)
+				.name("kafkaItemReader")
+				.maxItemCount(maxItemCount)
 				.build();
 
 		// then
-		assertNotNull(reader);
-		assertFalse((Boolean) ReflectionTestUtils.getField(reader, "saveState"));
-		assertEquals(pollTimeout, ReflectionTestUtils.getField(reader, "pollTimeout"));
-		List<TopicPartition> topicPartitions = (List<TopicPartition>) ReflectionTestUtils.getField(reader, "topicPartitions");
-		assertEquals(2, topicPartitions.size());
-		assertEquals(topic, topicPartitions.get(0).topic());
-		assertEquals(partitions.get(0).intValue(), topicPartitions.get(0).partition());
-		assertEquals(topic, topicPartitions.get(1).topic());
-		assertEquals(partitions.get(1).intValue(), topicPartitions.get(1).partition());
+		assertEquals(consumerFactory, ReflectionTestUtils.getField(reader, "consumerFactory"));
+		assertEquals(topicPartitions, ReflectionTestUtils.getField(reader, "topicPartitions"));
+		assertEquals(Duration.ofMillis(pollTimeout), ReflectionTestUtils.getField(reader, "pollTimeout"));
+		assertEquals(saveState, ReflectionTestUtils.getField(reader, "saveState"));
+		assertEquals(maxItemCount, ReflectionTestUtils.getField(reader, "maxItemCount"));
 	}
 }
